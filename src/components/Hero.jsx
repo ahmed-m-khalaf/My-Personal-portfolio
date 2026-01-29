@@ -2,7 +2,18 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { Button } from './index'; // Adjust import based on index.js export structure
 import { about } from '../data/about';
+import { socials } from '../data/socials';
 import avatar from '../assets/avatar.jpg';
+import { FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa';
+
+// Icon mapping
+const iconMap = {
+    FaEnvelope: FaEnvelope,
+    FaGithub: FaGithub,
+    FaLinkedin: FaLinkedin,
+    FaFacebook: FaFacebook,
+    FaInstagram: FaInstagram
+};
 
 const Hero = () => {
     const containerRef = useRef(null);
@@ -184,6 +195,45 @@ const Hero = () => {
                             <Button variant="outline" size="lg" href="#contact">
                                 Let's Talk
                             </Button>
+                        </div>
+
+                        {/* Social Links */}
+                        <div className="flex gap-4 mt-8 justify-center lg:justify-start">
+                            {socials.map((social) => {
+                                const IconComponent = iconMap[social.icon];
+                                return (
+                                    <a
+                                        key={social.id}
+                                        href={social.url}
+                                        target={social.url.startsWith('mailto:') ? '_self' : '_blank'}
+                                        rel="noopener noreferrer"
+                                        aria-label={social.name}
+                                        className="group relative p-3 rounded-full border border-white/10 transition-all duration-500 ease-out hover:-translate-y-3 hover:scale-110"
+                                        style={{
+                                            backgroundColor: 'rgba(90, 22, 72, 0.3)',
+                                            '--social-color': social.color
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.backgroundColor = social.color;
+                                            e.currentTarget.style.borderColor = social.color;
+                                            e.currentTarget.style.boxShadow = `0 10px 40px ${social.color}60`;
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.backgroundColor = 'rgba(90, 22, 72, 0.3)';
+                                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                                            e.currentTarget.style.boxShadow = 'none';
+                                        }}
+                                    >
+                                        <IconComponent
+                                            className="w-5 h-5 text-text-slate transition-colors duration-500 ease-out group-hover:text-white"
+                                        />
+                                        {/* Tooltip */}
+                                        <span className="absolute left-1/2 -translate-x-1/2 top-full mt-3 px-3 py-1.5 bg-bg-abyss/95 border border-white/20 rounded-md text-xs text-text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-lg">
+                                            Follow me on {social.name}
+                                        </span>
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
 

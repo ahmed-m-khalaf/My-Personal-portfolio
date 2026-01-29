@@ -1,6 +1,17 @@
 export const projects = [
     {
         id: 1,
+        title: "My Portfolio",
+        description: "A modern, high-performance personal portfolio featuring stunning animations, smooth interactions, and optimized SEO for maximum reach.",
+        tags: ["React", "Tailwind CSS", "GSAP", "Framer Motion", "SEO Optimized", "Vite"],
+        demo: "https://7amama.netlify.app/",
+        github: "https://github.com/ahmed-m-khalaf/My-Personal-portfolio.git",
+        image: "/images/projects/Screenshot 2026-01-29 225727.png",
+        accentColor: "#D91E2A", // Crimson accent
+        featured: true
+    },
+    {
+        id: 2,
         title: "Estate Elite",
         description: "A modern real estate platform showcasing luxury properties with an elegant UI and smooth user experience.",
         tags: ["React", "JavaScript", "CSS3", "Responsive Design", "Vercel"],
@@ -11,7 +22,7 @@ export const projects = [
         featured: true
     },
     {
-        id: 2,
+        id: 3,
         title: "StockSphere",
         description: "A comprehensive stock market dashboard with real-time data visualization, watchlists, and market insights.",
         tags: ["React", "Vite", "Axios", "Recharts", "REST API", "Finnhub API", "Netlify"],
@@ -22,7 +33,7 @@ export const projects = [
         featured: true
     },
     {
-        id: 3,
+        id: 4,
         title: "Todo List App",
         description: "A clean and intuitive task management application to organize your daily tasks efficiently.",
         tags: ["React", "Tailwind CSS", "Local Storage", "CRUD Operations", "Vercel"],
@@ -33,7 +44,7 @@ export const projects = [
         featured: true
     },
     {
-        id: 4,
+        id: 5,
         title: "Nexora Store",
         description: "An e-commerce storefront with a modern design, product galleries, and seamless shopping experience.",
         tags: ["React", "E-Commerce", "Tailwind CSS", "Responsive", "Product Catalog", "Vercel"],
@@ -44,7 +55,7 @@ export const projects = [
         featured: true
     },
     {
-        id: 5,
+        id: 6,
         title: "Word Ladder Solver",
         description: "An algorithm visualizer that finds the shortest path between two words using BFS (Breadth-First Search).",
         tags: ["Python", "HTML5", "CSS3", "JavaScript", "BFS Algorithm", "Data Structures", "Vercel"],

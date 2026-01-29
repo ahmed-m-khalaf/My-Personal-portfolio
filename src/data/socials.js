@@ -1,27 +1,34 @@
 export const socials = [
     {
         id: 1,
+        name: "Email",
+        url: "mailto:ahmdalmhmwd939@gmail.com",
+        icon: "FaEnvelope",
+        color: "#EA4335" // Gmail Red
+    },
+    {
+        id: 2,
         name: "GitHub",
         url: "https://github.com/ahmed-m-khalaf",
         icon: "FaGithub",
         color: "#7C8B9F" // Neutral gray for GitHub
     },
     {
-        id: 2,
+        id: 3,
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/ahmed-m-khalaf-9157aa319",
         icon: "FaLinkedin",
         color: "#0A66C2" // LinkedIn Blue
     },
     {
-        id: 3,
+        id: 4,
         name: "Facebook",
-        url: "https://www.facebook.com/profile.php?id=100012536446096",
+        url: "https://www.facebook.com/profile.php?id=100012536446096&locale=ar_AR",
         icon: "FaFacebook",
         color: "#1877F2" // Facebook Blue
     },
     {
-        id: 4,
+        id: 5,
         name: "Instagram",
         url: "https://www.instagram.com/ahmedmkhalaf1/",
         icon: "FaInstagram",
