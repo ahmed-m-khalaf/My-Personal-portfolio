@@ -1,0 +1,204 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Updated Color Palette */
+  --color-bg-abyss: #0A1628;
+  --color-card-midnight: #5A1648;
+  --color-accent-crimson: #D91E2A;
+  --color-accent-sapphire: #1E5F7E;
+  --color-accent-purple: #1A0B2E;
+
+  --color-text-white: #FAFBFC;
+  --color-text-gray: #E8ECEF;
+  --color-text-slate: #7C8B9F;
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@utility hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+}
+
+@utility hover-glow {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-accent-crimson/25;
+}
+
+/* Ripple effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.ripple-effect:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Custom Utilities */
+@utility glass {
+  @apply backdrop-blur-md bg-white/5 border border-white/10;
+}
+
+/* Animated Gradient Text */
+@keyframes gradient-shift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-gradient-text {
+  background: linear-gradient(90deg,
+      #be222c,
+      #1E5F7E,
+      #5A1648,
+      #D91E2A);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Base Styles */
+:root {
+  font-family: var(--font-body);
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: var(--color-text-gray);
+  background-color: var(--color-bg-abyss);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: start;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+#root {
+  width: 100%;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 19px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-abyss);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-accent-crimson), var(--color-card-midnight));
+  border-radius: 5px;
+  border: 12px solid var(--color-bg-abyss);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff3344, var(--color-accent-crimson));
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-crimson) var(--color-bg-abyss);
+}
+
+/* Accessibility - Focus States */
+:focus-visible {
+  outline: 2px solid var(--color-accent-crimson);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Touch-friendly targets */
+button,
+a[role="button"],
+input[type="button"],
+input[type="submit"] {
+  min-height: 44px;
+}
+
+/* Prevent zoom on input focus (iOS) */
+input,
+textarea,
+select {
+  font-size: 16px;
+}

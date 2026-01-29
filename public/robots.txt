@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://7amama.tech/sitemap.xml
