@@ -147,13 +147,13 @@ const Navbar = () => {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={toggleMobileMenu}
-                    className="md:hidden p-2 text-text-white hover:text-accent-crimson transition-colors"
+                    className="md:hidden p-3 rounded-lg bg-white/5 border border-white/10 text-text-white hover:text-accent-crimson hover:bg-white/10 transition-all duration-300"
                     aria-label="Toggle menu"
                 >
                     {isMobileMenuOpen ? (
-                        <FaTimes className="w-6 h-6" />
+                        <FaTimes className="w-7 h-7" />
                     ) : (
-                        <FaBars className="w-6 h-6" />
+                        <FaBars className="w-7 h-7" />
                     )}
                 </button>
             </div>
