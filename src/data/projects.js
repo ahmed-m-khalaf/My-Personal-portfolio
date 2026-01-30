@@ -18,7 +18,7 @@ export const projects = [
         demo: "https://estate-elite1-vp9v.vercel.app/",
         github: "https://github.com/ahmed-m-khalaf/Real-Estate-page.git",
         image: "/images/projects/Screenshot 2026-01-25 143557.png",
-        accentColor: "#9c7aceff", // Gold/Luxury
+        accentColor: "#3652beff", // Navy كحلي
         featured: true
     },
     {
@@ -29,7 +29,7 @@ export const projects = [
         demo: "https://stocksphrere.netlify.app/",
         github: "https://github.com/ahmed-m-khalaf/StockSphere.git",
         image: "/images/projects/Screenshot 2026-01-25 143636.png",
-        accentColor: "#22c55e", // Green (Stock theme)
+        accentColor: "#0f56a1ff", // Teal أزرقاني/تركواز غامق
         featured: true
     },
     {
@@ -51,7 +51,7 @@ export const projects = [
         demo: "https://nexora-store-six.vercel.app/",
         github: "https://github.com/ahmed-m-khalaf/Nexora-store.git",
         image: "/images/projects/Screenshot 2026-01-25 143921.png",
-        accentColor: "#8b5cf6", // Purple
+        accentColor: "#38bdf8", // Sky Blue سماوي فاتح
         featured: true
     },
     {
@@ -62,7 +62,7 @@ export const projects = [
         demo: "https://word-loader-solver-by-bfs-algorithm.vercel.app/",
         github: "https://github.com/ahmed-m-khalaf/Word-Loader-Solver-BY-BFS-ALGORITHM.git",
         image: "/images/projects/Screenshot 2026-01-25 144443.png",
-        accentColor: "#3b82f6", // Blue
+        accentColor: "#a78bfa", // Light Purple بنفسجي فاتح
         featured: true
     }
 ];
