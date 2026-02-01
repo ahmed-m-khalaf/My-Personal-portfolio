@@ -233,7 +233,7 @@ const Hero = () => {
         <section
             ref={containerRef}
             id="home"
-            className="min-h-screen flex items-center px-4 pt-20 relative overflow-hidden"
+            className="min-h-screen flex items-center px-6 sm:px-8 md:px-12 lg:px-4 pt-24 pb-12 relative overflow-hidden"
         >
             {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-bg-abyss via-card-midnight/10 to-bg-abyss" />
@@ -256,7 +256,7 @@ const Hero = () => {
                 <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20">
 
                     {/* Text Content */}
-                    <div ref={textRef} className="flex-1 text-center lg:text-left">
+                    <div ref={textRef} className="flex-1 text-center lg:text-left px-2 sm:px-0">
                         {/* Name with Text Scramble Effect */}
                         <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight scramble-container">
                             <span className="block text-text-white font-mono">
@@ -270,12 +270,12 @@ const Hero = () => {
                         </p>
 
                         {/* Tagline */}
-                        <p className="text-base md:text-lg text-text-slate max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+                        <p className="text-sm sm:text-base md:text-lg text-text-slate max-w-md sm:max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed px-2 sm:px-0">
                             {about.tagline}
                         </p>
 
                         {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-4 sm:px-0">
                             <Button variant="primary" size="lg" href="#projects">
                                 View My Work
                             </Button>
@@ -330,7 +330,7 @@ const Hero = () => {
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-accent-crimson/40 to-accent-sapphire/40 rounded-full blur-2xl scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-accent-crimson/50 shadow-2xl shadow-accent-crimson/30 transition-transform duration-500 hover:scale-[1.02]">
+                        <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-accent-crimson/50 shadow-2xl shadow-accent-crimson/30 transition-transform duration-500 hover:scale-[1.02]">
                             <img
                                 src={avatar}
                                 alt={about.name}

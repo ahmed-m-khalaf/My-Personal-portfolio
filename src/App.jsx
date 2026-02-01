@@ -53,7 +53,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-bg-abyss text-text-gray relative">
+    <div className="min-h-screen bg-bg-abyss text-text-gray relative overflow-x-hidden">
       {/* Skip to main content - Accessibility */}
       <a
         href="#main-content"

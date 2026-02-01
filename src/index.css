@@ -129,13 +129,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   margin: 0;
-  display: flex;
-  place-items: start;
+  display: block;
+  /* Changed from flex to block to avoid potential flex layout issues on body */
   min-width: 320px;
   min-height: 100vh;
+  width: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 
 h1,
@@ -150,12 +159,10 @@ h6 {
 
 #root {
   width: 100%;
+  overflow-x: hidden;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
+
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
