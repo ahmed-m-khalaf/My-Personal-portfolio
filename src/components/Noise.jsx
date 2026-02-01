@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const Noise = () => {
+// Memoized to prevent re-renders - this is a static visual element
+const Noise = memo(() => {
     return (
-        <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03] mix-blend-overlay">
-            <svg className="w-full h-full">
+        <div
+            className="fixed inset-0 z-0 pointer-events-none opacity-[0.03] mix-blend-overlay"
+            style={{
+                contain: 'strict',  // CSS containment for performance
+                willChange: 'auto'  // Hint browser this doesn't change
+            }}
+            aria-hidden="true"
+        >
+            <svg className="w-full h-full" aria-hidden="true">
                 <filter id="noiseFilter">
                     <feTurbulence
                         type="fractalNoise"
@@ -15,6 +23,9 @@ const Noise = () => {
             </svg>
         </div>
     );
-};
+});
+
+Noise.displayName = 'Noise';
 
 export default Noise;
+

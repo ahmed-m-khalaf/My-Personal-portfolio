@@ -34,23 +34,36 @@ export default defineConfig({
         }
       }
     },
-    // Minification
+    // Minification with better compression
     minify: 'esbuild',
     // Target modern browsers for smaller bundle
-    target: 'esnext',
+    target: 'es2020',
     // CSS code splitting
     cssCodeSplit: true,
+    // CSS minification
+    cssMinify: 'esbuild',
     // Warn if chunks are too large
     chunkSizeWarningLimit: 500,
     // Source maps off for production (smaller files)
-    sourcemap: false
+    sourcemap: false,
+    // Optimize for modern browsers
+    modulePreload: {
+      polyfill: false  // Skip polyfill for modern browsers
+    },
+    // Reduce asset inlining threshold for better caching
+    assetsInlineLimit: 4096
   },
 
-  // Server options
+  // Development server options
   server: {
-    // Enable compression
     headers: {
       'Cache-Control': 'max-age=31536000'
     }
+  },
+
+  // Optimize dependencies for faster dev
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'gsap', 'lenis']
   }
 })
+

@@ -94,6 +94,25 @@
   animation: gradient-shift 6s ease infinite;
 }
 
+/* Avatar Ring Pulse Animation */
+@keyframes ring-pulse {
+
+  0%,
+  100% {
+    transform: scale(1.25);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.35);
+    opacity: 0.6;
+  }
+}
+
+.avatar-ring-pulse {
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
 /* Base Styles */
 :root {
   font-family: var(--font-body);

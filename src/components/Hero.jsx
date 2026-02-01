@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import gsap from 'gsap';
-import { Button } from './index'; // Adjust import based on index.js export structure
+import { Button } from './index';
 import { about } from '../data/about';
 import { socials } from '../data/socials';
 import avatar from '../assets/avatar.jpg';
@@ -15,15 +15,124 @@ const iconMap = {
     FaInstagram: FaInstagram
 };
 
+// Text Scramble Hook - Performance Optimized
+const useTextScramble = (finalText, options = {}) => {
+    const {
+        duration = 1.5,
+        delay = 0.5,
+        characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*',
+        scrambleSpeed = 30 // ms between scramble updates
+    } = options;
+
+    const [displayText, setDisplayText] = useState('');
+    const [isComplete, setIsComplete] = useState(false);
+    const frameRef = useRef(null);
+    const startTimeRef = useRef(null);
+
+    const scramble = useCallback(() => {
+        const totalDuration = duration * 1000;
+        const chars = characters.split('');
+        let lastUpdate = 0;
+        const updateInterval = 50; // Only update every 50ms for smoother animation
+
+        const animate = (timestamp) => {
+            if (!startTimeRef.current) startTimeRef.current = timestamp;
+            const elapsed = timestamp - startTimeRef.current;
+            const progress = Math.min(elapsed / totalDuration, 1);
+
+            // Only update at intervals for smoother, slower animation
+            if (timestamp - lastUpdate < updateInterval && progress < 1) {
+                frameRef.current = requestAnimationFrame(animate);
+                return;
+            }
+            lastUpdate = timestamp;
+
+            // Calculate how many characters should be revealed
+            const revealedCount = Math.floor(finalText.length * progress);
+
+            let result = '';
+            for (let i = 0; i < finalText.length; i++) {
+                if (finalText[i] === ' ') {
+                    result += ' ';
+                } else if (i < revealedCount) {
+                    result += finalText[i];
+                } else {
+                    // Less random changes - only change some letters
+                    result += chars[Math.floor(Math.random() * chars.length)];
+                }
+            }
+
+            setDisplayText(result);
+
+            if (progress < 1) {
+                frameRef.current = requestAnimationFrame(animate);
+            } else {
+                setDisplayText(finalText);
+                setIsComplete(true);
+            }
+        };
+
+        // Start after delay
+        const timeoutId = setTimeout(() => {
+            frameRef.current = requestAnimationFrame(animate);
+        }, delay * 1000);
+
+        return () => {
+            clearTimeout(timeoutId);
+            if (frameRef.current) {
+                cancelAnimationFrame(frameRef.current);
+            }
+        };
+    }, [finalText, duration, delay, characters]);
+
+    useEffect(() => {
+        const cleanup = scramble();
+        return cleanup;
+    }, [scramble]);
+
+    return { displayText, isComplete };
+};
+
+// Memoized Scramble Letter Component - Fixed spacing
+const ScrambleLetter = React.memo(({ char, index }) => (
+    <span
+        key={index}
+        className={`inline-block interactive-letter transition-colors cursor-default ${char === ' ' ? 'w-3' : ''}`}
+    >
+        {char}
+    </span>
+));
+
 const Hero = () => {
     const containerRef = useRef(null);
     const textRef = useRef(null);
     const avatarRef = useRef(null);
     const bgBlobsRef = useRef([]);
 
+    // Text Scramble for Name - Slower and simpler
+    const { displayText: scrambledName, isComplete: nameComplete } = useTextScramble(about.name, {
+        duration: 2.5,  // Slower animation
+        delay: 0.5,
+        characters: 'AMKHLF'  // Only use letters similar to the name
+    });
+
+    // Text Scramble for Title - Slower
+    const { displayText: scrambledTitle, isComplete: titleComplete } = useTextScramble(about.title, {
+        duration: 1.8,  // Slower
+        delay: 1.8,
+        characters: 'FrontEndDvlpr-'  // Related to title
+    });
+
+    // Memoize scrambled letters to prevent unnecessary re-renders
+    const scrambledNameLetters = useMemo(() =>
+        scrambledName.split('').map((char, index) => (
+            <ScrambleLetter key={index} char={char} index={index} />
+        )),
+        [scrambledName]
+    );
+
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // 1. Initial Entry Animation
             const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
             // Animate Avatar
@@ -33,18 +142,19 @@ const Hero = () => {
                 { x: 0, opacity: 1, scale: 1, duration: 1 }
             );
 
-            // Animate Text Content (Staggered)
-            // Note: We'll animate the children of the text container
-            const textElements = textRef.current.children;
+            // Animate Text Content (Staggered) - Skip h1 since it has scramble effect
+            const textElements = textRef.current.querySelectorAll('p, div:not(.scramble-container)');
             tl.fromTo(
                 textElements,
                 { x: -50, opacity: 0 },
                 { x: 0, opacity: 1, duration: 0.6, stagger: 0.15 },
-                '-=0.6'
+                '-=0.4'
             );
 
-            // 2. Background Blob Animation (Floating)
+            // Background Blob Animation (Floating) - with will-change for GPU
             bgBlobsRef.current.forEach((blob, i) => {
+                if (!blob) return;
+                gsap.set(blob, { willChange: 'transform' });
                 gsap.to(blob, {
                     x: "random(-50, 50)",
                     y: "random(-50, 50)",
@@ -57,39 +167,37 @@ const Hero = () => {
                 });
             });
 
-            // 3. Interactive Text (Rubber band effect on hover)
-            // Select all spans with class 'interactive-letter'
-            const letters = gsap.utils.toArray('.interactive-letter');
+            // Interactive Text (Rubber band effect on hover) - Only after scramble complete
+            if (nameComplete) {
+                const letters = gsap.utils.toArray('.interactive-letter');
+                letters.forEach((letter) => {
+                    letter.addEventListener('mouseenter', () => {
+                        gsap.to(letter, {
+                            scale: 1.3,
+                            color: '#D91E2A',
+                            duration: 0.3,
+                            ease: "back.out(2)",
+                            overwrite: true
+                        });
+                    });
 
-            letters.forEach((letter) => {
-                letter.addEventListener('mouseenter', () => {
-                    gsap.to(letter, {
-                        scale: 1.3,
-                        color: '#D91E2A', // Accent Crimson
-                        duration: 0.3,
-                        ease: "back.out(2)",
-                        overwrite: true
+                    letter.addEventListener('mouseleave', () => {
+                        gsap.to(letter, {
+                            scale: 1,
+                            color: 'inherit',
+                            duration: 0.3,
+                            ease: "power2.out",
+                            overwrite: true
+                        });
                     });
                 });
-
-                letter.addEventListener('mouseleave', () => {
-                    gsap.to(letter, {
-                        scale: 1,
-                        color: 'inherit', // Return to original color
-                        duration: 0.3,
-                        ease: "power2.out",
-                        overwrite: true
-                    });
-                });
-            });
-
+            }
         }, containerRef);
 
-        // Throttle function for performance
+        // Throttled Parallax Effect
         let lastTime = 0;
-        const throttleDelay = 16; // ~60fps
+        const throttleDelay = 16;
 
-        // 4. Parallax Effect for Background (Mouse Movement) - Throttled
         const handleMouseMove = (e) => {
             const now = Date.now();
             if (now - lastTime < throttleDelay) return;
@@ -97,23 +205,15 @@ const Hero = () => {
 
             const { clientX, clientY } = e;
             const { innerWidth, innerHeight } = window;
-
-            // Calculate mouse position relative to center (-1 to 1)
             const xPos = (clientX / innerWidth - 0.5) * 2;
             const yPos = (clientY / innerHeight - 0.5) * 2;
 
-            // Apply parallax to each blob with different speeds (depth layers)
             bgBlobsRef.current.forEach((blob, i) => {
                 if (!blob) return;
-
-                // Different speeds for different layers (0 = closest/fastest, 2 = furthest/slowest)
-                const speed = (i + 1) * 10; // 10, 20, 30
-                const x = xPos * speed;
-                const y = yPos * speed;
-
+                const speed = (i + 1) * 10;
                 gsap.to(blob, {
-                    x: x,
-                    y: y,
+                    x: xPos * speed,
+                    y: yPos * speed,
                     duration: 1.5,
                     ease: "power2.out",
                     overwrite: 'auto'
@@ -121,26 +221,13 @@ const Hero = () => {
             });
         };
 
-        // Add event listener with passive for better scroll performance
         window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
         return () => {
             ctx.revert();
             window.removeEventListener('mousemove', handleMouseMove);
         };
-    }, []);
-
-    // Helper to split text into interactive spans
-    const splitText = (text, className = "") => {
-        return text.split("").map((char, index) => (
-            <span
-                key={index}
-                className={`inline-block interactive-letter transition-colors cursor-default ${char === " " ? "mr-2" : ""}`}
-            >
-                {char}
-            </span>
-        ));
-    };
+    }, [nameComplete]);
 
     return (
         <section
@@ -148,38 +235,38 @@ const Hero = () => {
             id="home"
             className="min-h-screen flex items-center px-4 pt-20 relative overflow-hidden"
         >
-            {/* Background Gradient Effects */}
+            {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-bg-abyss via-card-midnight/10 to-bg-abyss" />
 
-            {/* Animated Blobs */}
+            {/* Animated Blobs - GPU accelerated */}
             <div
                 ref={el => bgBlobsRef.current[0] = el}
-                className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent-crimson/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none"
+                className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent-crimson/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none transform-gpu"
             />
             <div
                 ref={el => bgBlobsRef.current[1] = el}
-                className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent-sapphire/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none"
+                className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent-sapphire/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none transform-gpu"
             />
             <div
                 ref={el => bgBlobsRef.current[2] = el}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-card-midnight/10 rounded-full blur-[120px] pointer-events-none"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-card-midnight/10 rounded-full blur-[120px] pointer-events-none transform-gpu"
             />
 
             <div className="relative z-10 max-w-7xl mx-auto w-full">
                 <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20">
 
-                    {/* Text Content - Left Side */}
+                    {/* Text Content */}
                     <div ref={textRef} className="flex-1 text-center lg:text-left">
-                        {/* Name with Animated Gradient & Interactive Letters */}
-                        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-                            <span className="block text-text-white">
-                                {splitText(about.name)}
+                        {/* Name with Text Scramble Effect */}
+                        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight scramble-container">
+                            <span className="block text-text-white font-mono">
+                                {scrambledNameLetters}
                             </span>
                         </h1>
 
-                        {/* Title */}
-                        <p className="text-xl md:text-2xl text-accent-crimson font-semibold mb-4">
-                            {about.title}
+                        {/* Title with Text Scramble */}
+                        <p className="text-xl md:text-2xl text-accent-crimson font-semibold mb-4 font-mono h-8">
+                            {scrambledTitle}
                         </p>
 
                         {/* Tagline */}
@@ -208,7 +295,7 @@ const Hero = () => {
                                         target={social.url.startsWith('mailto:') ? '_self' : '_blank'}
                                         rel="noopener noreferrer"
                                         aria-label={social.name}
-                                        className="group relative p-3 rounded-full border border-white/10 transition-all duration-500 ease-out hover:-translate-y-3 hover:scale-110"
+                                        className="group relative p-3 rounded-full border border-white/10 transition-all duration-500 ease-out hover:-translate-y-3 hover:scale-110 transform-gpu"
                                         style={{
                                             backgroundColor: 'rgba(90, 22, 72, 0.3)',
                                             '--social-color': social.color
@@ -227,7 +314,6 @@ const Hero = () => {
                                         <IconComponent
                                             className="w-5 h-5 text-text-slate transition-colors duration-500 ease-out group-hover:text-white"
                                         />
-                                        {/* Tooltip */}
                                         <span className="absolute left-1/2 -translate-x-1/2 top-full mt-3 px-3 py-1.5 bg-bg-abyss/95 border border-white/20 rounded-md text-xs text-text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-lg">
                                             Follow me on {social.name}
                                         </span>
@@ -237,15 +323,13 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    {/* Avatar - Right Side */}
+                    {/* Avatar */}
                     <div
                         ref={avatarRef}
                         className="flex-shrink-0 relative group"
                     >
-                        {/* Glow Effect */}
                         <div className="absolute inset-0 bg-gradient-to-br from-accent-crimson/40 to-accent-sapphire/40 rounded-full blur-2xl scale-110 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        {/* Image Container */}
                         <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-accent-crimson/50 shadow-2xl shadow-accent-crimson/30 transition-transform duration-500 hover:scale-[1.02]">
                             <img
                                 src={avatar}
@@ -255,11 +339,11 @@ const Hero = () => {
                                 height="384"
                                 loading="eager"
                                 decoding="async"
+                                fetchPriority="high"
                             />
                         </div>
 
-                        {/* Decorative Ring */}
-                        <div className="absolute inset-0 rounded-full border-2 border-accent-sapphire/30 scale-125 animate-pulse" />
+                        <div className="absolute inset-0 rounded-full border-2 border-accent-sapphire/30 avatar-ring-pulse" />
                     </div>
                 </div>
             </div>

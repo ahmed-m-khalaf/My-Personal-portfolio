@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = ({
     children,
@@ -9,13 +13,60 @@ const SectionWrapper = ({
     centered = true,
     ...props
 }) => {
+    const sectionRef = useRef(null);
+    const contentRef = useRef(null);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        const content = contentRef.current;
+
+        if (!section || !content) return;
+
+        // Create a context for cleanup
+        const ctx = gsap.context(() => {
+            // Set initial state
+            gsap.set(content.children, {
+                opacity: 0,
+                y: 60,
+                willChange: 'transform, opacity'
+            });
+
+            // Create scroll-triggered animation
+            gsap.to(content.children, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    toggleActions: 'play none none reverse',
+                    // Performance: only animate when in viewport
+                    fastScrollEnd: true,
+                    preventOverlaps: true
+                },
+                onComplete: () => {
+                    // Clean up will-change after animation
+                    gsap.set(content.children, { willChange: 'auto' });
+                }
+            });
+        }, section);
+
+        return () => {
+            ctx.revert();
+        };
+    }, []);
+
     return (
         <section
+            ref={sectionRef}
             id={id}
             className={`py-20 md:py-28 px-4 ${className}`}
             {...props}
         >
-            <div className="max-w-7xl mx-auto">
+            <div ref={contentRef} className="max-w-7xl mx-auto">
                 {title && (
                     <SectionHeader
                         title={title}
@@ -58,3 +109,4 @@ export const SectionHeader = ({ title, subtitle, centered = true }) => {
 };
 
 export default SectionWrapper;
+
