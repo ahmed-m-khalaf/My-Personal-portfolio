@@ -12,17 +12,28 @@ export const projects = [
     },
     {
         id: 2,
+        title: "SmartSpend",
+        description: "A smart expense tracking dashboard that helps you manage your finances with beautiful charts, transaction history, and budget insights.",
+        tags: ["React", "Context API", "Local Storage", "Recharts", "CSS3", "Netlify"],
+        demo: "https://smartspend22.netlify.app/",
+        github: "https://github.com/ahmed-m-khalaf/SmartSpend.git",
+        image: "/images/projects/smartspend.png",
+        accentColor: "#10b981", // Emerald green to match the app's theme
+        featured: true
+    },
+    {
+        id: 3,
         title: "Estate Elite",
         description: "A modern real estate platform showcasing luxury properties with an elegant UI and smooth user experience.",
         tags: ["React", "JavaScript", "CSS3", "Responsive Design", "Vercel"],
         demo: "https://estate-elite1-vp9v.vercel.app/",
         github: "https://github.com/ahmed-m-khalaf/Real-Estate-page.git",
         image: "/images/projects/Screenshot 2026-01-25 143557.png",
-        accentColor: "#3652beff", // Navy كحلي
+        accentColor: "#4e67caff", // Navy كحلي
         featured: true
     },
     {
-        id: 3,
+        id: 4,
         title: "StockSphere",
         description: "A comprehensive stock market dashboard with real-time data visualization, watchlists, and market insights.",
         tags: ["React", "Vite", "Axios", "Recharts", "REST API", "Finnhub API", "Netlify"],
@@ -33,7 +44,7 @@ export const projects = [
         featured: true
     },
     {
-        id: 4,
+        id: 5,
         title: "Todo List App",
         description: "A clean and intuitive task management application to organize your daily tasks efficiently.",
         tags: ["React", "Tailwind CSS", "Local Storage", "CRUD Operations", "Vercel"],
@@ -44,18 +55,18 @@ export const projects = [
         featured: true
     },
     {
-        id: 5,
+        id: 6,
         title: "Nexora Store",
         description: "An e-commerce storefront with a modern design, product galleries, and seamless shopping experience.",
         tags: ["React", "E-Commerce", "Tailwind CSS", "Responsive", "Product Catalog", "Vercel"],
         demo: "https://nexora-store-six.vercel.app/",
         github: "https://github.com/ahmed-m-khalaf/Nexora-store.git",
         image: "/images/projects/Screenshot 2026-01-25 143921.png",
-        accentColor: "#38bdf8", // Sky Blue سماوي فاتح
+        accentColor: "#2ec0feff", // Sky Blue سماوي فاتح
         featured: true
     },
     {
-        id: 6,
+        id: 7,
         title: "Word Ladder Solver",
         description: "An algorithm visualizer that finds the shortest path between two words using BFS (Breadth-First Search).",
         tags: ["Python", "HTML5", "CSS3", "JavaScript", "BFS Algorithm", "Data Structures", "Vercel"],
