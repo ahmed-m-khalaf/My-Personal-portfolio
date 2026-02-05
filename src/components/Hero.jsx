@@ -238,18 +238,18 @@ const Hero = () => {
             {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-bg-abyss via-card-midnight/10 to-bg-abyss" />
 
-            {/* Animated Blobs - GPU accelerated */}
+            {/* Animated Blobs - GPU accelerated with reduced blur for performance */}
             <div
                 ref={el => bgBlobsRef.current[0] = el}
-                className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent-crimson/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none transform-gpu"
+                className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent-crimson/25 rounded-full blur-[60px] mix-blend-screen pointer-events-none transform-gpu"
             />
             <div
                 ref={el => bgBlobsRef.current[1] = el}
-                className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent-sapphire/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none transform-gpu"
+                className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent-sapphire/25 rounded-full blur-[60px] mix-blend-screen pointer-events-none transform-gpu"
             />
             <div
                 ref={el => bgBlobsRef.current[2] = el}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-card-midnight/10 rounded-full blur-[120px] pointer-events-none transform-gpu"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-card-midnight/15 rounded-full blur-[70px] pointer-events-none transform-gpu"
             />
 
             <div className="relative z-10 max-w-7xl mx-auto w-full">
