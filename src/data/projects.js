@@ -29,7 +29,7 @@ export const projects = [
         demo: "https://estate-elite1-vp9v.vercel.app/",
         github: "https://github.com/ahmed-m-khalaf/Real-Estate-page.git",
         image: "/images/projects/Screenshot 2026-01-25 143557.png",
-        accentColor: "#4e67caff", // Navy كحلي
+        accentColor: "#4e7dcaff", // Navy كحلي
         featured: true
     },
     {
@@ -51,7 +51,7 @@ export const projects = [
         demo: "https://todolist-pink-alpha.vercel.app/",
         github: "https://github.com/ahmed-m-khalaf/Todo-list-App.git",
         image: "/images/projects/Screenshot 2026-01-25 143711.png",
-        accentColor: "#ec4899", // Pink
+        accentColor: "#06290eb9", // Pink
         featured: true
     },
     {
@@ -74,6 +74,17 @@ export const projects = [
         github: "https://github.com/ahmed-m-khalaf/Word-Loader-Solver-BY-BFS-ALGORITHM.git",
         image: "/images/projects/Screenshot 2026-01-25 144443.png",
         accentColor: "#a78bfa", // Light Purple بنفسجي فاتح
+        featured: true
+    },
+    {
+        id: 8,
+        title: "DriveLux",
+        description: "A premium car rental platform featuring an extensive fleet catalog, vehicle comparison, wishlist, dashboard, and a seamless booking experience.",
+        tags: ["React", "Vite", "Tailwind CSS", "Framer Motion", "React Router", "Context API", "Netlify"],
+        demo: "https://drivelux1.netlify.app/",
+        github: "https://github.com/ahmed-m-khalaf/DriveLux.git",
+        image: "/images/projects/Screenshot 2026-02-25 182550.png",
+        accentColor: "#D4A843", // Gold ذهبي
         featured: true
     }
 ];

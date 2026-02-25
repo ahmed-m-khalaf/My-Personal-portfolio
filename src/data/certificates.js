@@ -47,4 +47,13 @@ export const certificates = [
         image: "/images/certificates/Screenshot 2026-01-25 202417.png",
         color: "#A435F0" // لون يوديمي الموف
     },
+   {
+    id: 7,
+    title: "CCNA: Switching, Routing, and Wireless Essentials",
+    issuer: "Cisco Networking Academy",
+    date: "Feb 2026",
+    // المسار يبدأ من بعد كلمة public مباشرة
+    image: "/images/certificates/Screenshot 2026-02-25 182521.png", 
+    color: "#049fd9"
+},
 ];
