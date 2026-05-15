@@ -19,6 +19,7 @@ import {
 } from 'react-icons/si';
 import { SectionHeader } from './SectionWrapper';
 import { skills } from '../data/skills';
+import { getT } from '../data/translations';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,9 +39,11 @@ const iconMap = {
     SiVite: SiVite,
 };
 
-const Skills = () => {
+const Skills = ({ lang = 'en' }) => {
     const sectionRef = useRef(null);
     const cardsRef = useRef(null);
+
+    const t = getT(lang);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -65,6 +68,9 @@ const Skills = () => {
         return () => ctx.revert();
     }, []);
 
+    // Get translated skills content
+    const translatedSkills = t('content.skills') || [];
+
     return (
         <section
             ref={sectionRef}
@@ -72,7 +78,7 @@ const Skills = () => {
             className="py-20 md:py-28 px-4"
         >
             <div className="max-w-7xl mx-auto">
-                <SectionHeader title="My Skills" centered />
+                <SectionHeader title={t('sections.skills')} centered />
 
                 <div
                     ref={cardsRef}
@@ -80,6 +86,13 @@ const Skills = () => {
                 >
                     {skills.map((skill) => {
                         const IconComponent = iconMap[skill.icon];
+                        // Find translated content for this skill
+                        const translated = Array.isArray(translatedSkills)
+                            ? translatedSkills.find(s => s.id === skill.id)
+                            : null;
+                        const displayName = translated?.name || skill.name;
+                        const displayCategory = translated?.category || skill.category;
+
                         return (
                             <div
                                 key={skill.id}
@@ -104,10 +117,10 @@ const Skills = () => {
                                     {/* Text Content */}
                                     <div>
                                         <h4 className="font-display text-2xl font-bold text-text-white mb-1 group-hover:text-white transition-colors">
-                                            {skill.name}
+                                            {displayName}
                                         </h4>
                                         <p className="text-text-slate text-sm font-medium uppercase tracking-wider">
-                                            {skill.category}
+                                            {displayCategory}
                                         </p>
                                     </div>
                                 </div>

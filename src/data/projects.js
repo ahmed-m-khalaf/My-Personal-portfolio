@@ -1,5 +1,16 @@
 export const projects = [
     {
+        id: 9,
+        title: "SkyReserve X",
+        description: "A full-stack flight booking platform built with a modern serverless architecture using Firebase. The project focuses on performance, scalability, and a premium user experience. It includes authentication, real-time database integration, advanced UI animations, and strict TypeScript for reliability.",
+        tags: ["React", "TypeScript", "Firebase", "Firestore", "TailwindCSS", "Framer Motion", "GSAP"],
+        demo: "https://skyreserve1.netlify.app/",
+        github: "https://github.com/ahmed-m-khalaf/SkyReserve.git",
+        image: "/images/projects/skyreserve.png",
+        accentColor: "#1E90FF", // Dodger Blue — aviation sky theme
+        featured: true
+    },
+    {
         id: 1,
         title: "My Portfolio",
         description: "A modern, high-performance personal portfolio featuring stunning animations, smooth interactions, and optimized SEO for maximum reach.",
@@ -18,7 +29,7 @@ export const projects = [
         demo: "https://smartspend22.netlify.app/",
         github: "https://github.com/ahmed-m-khalaf/SmartSpend.git",
         image: "/images/projects/smartspend.png",
-        accentColor: "#10b981", // Emerald green to match the app's theme
+        accentColor: "#29b486ff", // Emerald green to match the app's theme
         featured: true
     },
     {

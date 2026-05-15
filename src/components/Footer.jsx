@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaFacebook, FaInstagram, FaHeart } from 'react-icons/fa';
 import { socials } from '../data/socials';
+import { getT } from '../data/translations';
 
 const iconMap = {
     FaGithub: FaGithub,
@@ -9,15 +10,16 @@ const iconMap = {
     FaInstagram: FaInstagram,
 };
 
-const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-];
-
-const Footer = () => {
+const Footer = ({ lang = 'en' }) => {
     const currentYear = new Date().getFullYear();
+    const t = getT(lang);
+
+    const quickLinks = [
+        { name: t('nav.home'), href: '#home' },
+        { name: t('nav.about'), href: '#about' },
+        { name: t('nav.projects'), href: '#projects' },
+        { name: t('nav.contact'), href: '#contact' },
+    ];
 
     return (
         <footer className="bg-bg-abyss border-t border-white/10">
@@ -32,18 +34,18 @@ const Footer = () => {
                             7AMAMA🤍<span className="text-accent-crimson">.</span>
                         </a>
                         <p className="mt-4 text-text-slate text-sm max-w-xs">
-                            Crafting digital experiences that matter. Let's build something amazing together.
+                            {t('footer.description')}
                         </p>
                     </div>
 
                     {/* Quick Links */}
                     <div>
                         <h4 className="font-display font-semibold text-text-white mb-4">
-                            Quick Links
+                            {t('sections.footerQuickLinks')}
                         </h4>
                         <ul className="space-y-2">
                             {quickLinks.map((link) => (
-                                <li key={link.name}>
+                                <li key={link.href}>
                                     <a
                                         href={link.href}
                                         className="text-text-slate hover:text-accent-crimson transition-colors text-sm"
@@ -58,7 +60,7 @@ const Footer = () => {
                     {/* Socials */}
                     <div>
                         <h4 className="font-display font-semibold text-text-white mb-4">
-                            Connect
+                            {t('sections.footerConnect')}
                         </h4>
                         <div className="flex gap-4">
                             {socials.map((social) => {
@@ -98,10 +100,10 @@ const Footer = () => {
                 {/* Copyright */}
                 <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-text-slate text-sm">
-                        © {currentYear} Ahmed M Khalaf. All rights reserved.
+                        © {currentYear} Ahmed M Khalaf. {t('footer.copyright')}
                     </p>
                     <p className="text-text-slate text-sm flex items-center gap-1">
-                        Made By Dev <FaHeart className="text-accent-crimson w-4 h-4" /> Ahmed.
+                        {t('footer.madeBy')} <FaHeart className="text-accent-crimson w-4 h-4" /> {t('footer.madeBySuffix')}
                     </p>
                 </div>
             </div>

@@ -56,4 +56,5 @@ export const certificates = [
     image: "/images/certificates/Screenshot 2026-02-25 182521.png", 
     color: "#049fd9"
 },
+
 ];

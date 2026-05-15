@@ -1,21 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaGlobe } from 'react-icons/fa';
+import { getT } from '../data/translations';
+
 
 const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Certificates', href: '#certificates' },
-    { name: 'Contact', href: '#contact' },
+
+    { key: 'home', href: '#home' },
+    { key: 'about', href: '#about' },
+    { key: 'skills', href: '#skills' },
+    { key: 'services', href: '#services' },
+    { key: 'projects', href: '#projects' },
+    { key: 'certificates', href: '#certificates' },
+    { key: 'contact', href: '#contact' },
 ];
 
-const Navbar = () => {
+const Navbar = ({ lang, setLang }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [sectionProgress, setSectionProgress] = useState({});
     const [activeSection, setActiveSection] = useState('home');
+
+    const t = getT(lang);
 
     const calculateProgress = useCallback(() => {
         const scrollY = window.scrollY;
@@ -23,7 +28,7 @@ const Navbar = () => {
         const progress = {};
         let currentActive = 'home';
 
-        navLinks.forEach((link, index) => {
+        navLinks.forEach((link) => {
             const sectionId = link.href.replace('#', '');
             const section = document.getElementById(sectionId);
 
@@ -79,6 +84,10 @@ const Navbar = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const toggleLang = () => {
+        setLang(lang === 'ar' ? 'en' : 'ar');
+    };
+
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
@@ -106,12 +115,15 @@ const Navbar = () => {
                 {/* Desktop Navigation */}
                 <ul className="hidden md:flex items-center gap-6">
                     {navLinks.map((link) => {
+                        const label = t(`nav.${link.key}`, link.key);
                         const sectionId = link.href.replace('#', '');
+
+                        // note: for active/progress we use sectionId, but label uses translated `name`
                         const progress = sectionProgress[sectionId] || 0;
                         const isActive = activeSection === sectionId;
 
                         return (
-                            <li key={link.name} className="relative">
+                            <li key={link.key} className="relative">
                                 <a
                                     href={link.href}
                                     className={`text-sm transition-colors duration-200 relative block pb-1 ${isActive
@@ -119,7 +131,7 @@ const Navbar = () => {
                                         : 'text-text-gray hover:text-text-white'
                                         }`}
                                 >
-                                    {link.name}
+                                    {label}
                                 </a>
                                 {/* Progress Bar */}
                                 <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white/10 rounded-full overflow-hidden">
@@ -136,13 +148,27 @@ const Navbar = () => {
                     })}
                 </ul>
 
-                {/* CTA Button - Desktop */}
-                <a
-                    href="#contact"
-                    className="hidden md:inline-flex items-center px-5 py-2.5 rounded-lg bg-accent-crimson text-white font-semibold text-sm hover:bg-accent-crimson/90 hover:shadow-lg hover:shadow-accent-crimson/25 transition-all duration-300"
-                >
-                    Let's Talk
-                </a>
+                {/* Desktop Right Buttons */}
+                <div className="hidden md:flex items-center gap-3">
+                    {/* Language Toggle Button */}
+                    <button
+                        type="button"
+                        onClick={toggleLang}
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-text-white font-semibold text-sm hover:bg-white/10 transition-all duration-300"
+                        aria-label={lang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'}
+                    >
+                        <FaGlobe className="w-4 h-4 text-accent-crimson" />
+                        {t('nav.toggleLang')}
+                    </button>
+
+                    {/* CTA Button */}
+                    <a
+                        href="#contact"
+                        className="inline-flex items-center px-5 py-2.5 rounded-lg bg-accent-crimson text-white font-semibold text-sm hover:bg-accent-crimson/90 hover:shadow-lg hover:shadow-accent-crimson/25 transition-all duration-300"
+                    >
+                        {t('nav.letsTalk')}
+                    </a>
+                </div>
 
                 {/* Mobile Menu Button */}
                 <button
@@ -171,8 +197,9 @@ const Navbar = () => {
                         const progress = sectionProgress[sectionId] || 0;
                         const isActive = activeSection === sectionId;
 
+                        const mobileLabel = t(`nav.${link.key}`, link.key);
                         return (
-                            <li key={link.name} className="relative">
+                            <li key={link.key} className="relative">
                                 <a
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
@@ -182,7 +209,7 @@ const Navbar = () => {
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
-                                        <span>{link.name}</span>
+                                        <span>{mobileLabel}</span>
                                         {/* Mobile Progress Indicator */}
                                         <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
                                             <div
@@ -195,13 +222,26 @@ const Navbar = () => {
                             </li>
                         );
                     })}
-                    <li className="px-4 pt-4">
+
+                    {/* Mobile Language Toggle */}
+                    <li className="px-4 pt-3">
+                        <button
+                            type="button"
+                            onClick={() => { toggleLang(); setIsMobileMenuOpen(false); }}
+                            className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-white/5 border border-white/10 text-text-white font-semibold hover:bg-white/10 transition-all"
+                        >
+                            <FaGlobe className="w-4 h-4 text-accent-crimson" />
+                            {t('nav.toggleLang')}
+                        </button>
+                    </li>
+
+                    <li className="px-4 pt-3">
                         <a
                             href="#contact"
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="block text-center px-5 py-3 rounded-lg bg-accent-crimson text-white font-semibold hover:bg-accent-crimson/90 transition-all"
                         >
-                            Let's Talk
+                            {t('nav.letsTalk')}
                         </a>
                     </li>
                 </ul>

@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaCode, FaPalette, FaBolt, FaSearch, FaMobileAlt, FaGlobe } from 'react-icons/fa';
 import { SectionHeader } from './SectionWrapper';
 import { services } from '../data/services';
+import { getT } from '../data/translations';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,9 +17,11 @@ const iconMap = {
     FaGlobe: FaGlobe
 };
 
-const Services = () => {
+const Services = ({ lang = 'en' }) => {
     const sectionRef = useRef(null);
     const cardsRef = useRef(null);
+
+    const t = getT(lang);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -42,6 +45,9 @@ const Services = () => {
         return () => ctx.revert();
     }, []);
 
+    // Get translated services content
+    const translatedServices = t('content.services') || [];
+
     return (
         <section
             ref={sectionRef}
@@ -52,7 +58,7 @@ const Services = () => {
             <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent-purple/30 rounded-full blur-3xl -z-10 -translate-y-1/2" />
 
             <div className="max-w-7xl mx-auto">
-                <SectionHeader title="What I Do" subtitle="Services" centered />
+                <SectionHeader title={t('sections.servicesTitle')} subtitle={t('sections.servicesSubtitle')} centered />
 
                 <div
                     ref={cardsRef}
@@ -60,6 +66,13 @@ const Services = () => {
                 >
                     {services.map((service) => {
                         const IconComponent = iconMap[service.icon];
+                        // Find translated content for this service
+                        const translated = Array.isArray(translatedServices)
+                            ? translatedServices.find(s => s.id === service.id)
+                            : null;
+                        const displayTitle = translated?.title || service.title;
+                        const displayDescription = translated?.description || service.description;
+
                         return (
                             <div
                                 key={service.id}
@@ -80,10 +93,10 @@ const Services = () => {
                                         {IconComponent && <IconComponent />}
                                     </div>
                                     <h3 className="text-xl font-display font-bold text-text-white mb-3 group-hover:text-[var(--service-color)] transition-colors">
-                                        {service.title}
+                                        {displayTitle}
                                     </h3>
                                     <p className="text-text-slate text-sm leading-relaxed group-hover:text-text-gray transition-colors">
-                                        {service.description}
+                                        {displayDescription}
                                     </p>
                                 </div>
 

@@ -113,6 +113,156 @@
   animation: ring-pulse 3s ease-in-out infinite;
 }
 
+/* ─────────────────────────────────────────────────
+   Hero Animated Background — CSS-only, GPU-optimized
+   Uses ONLY transform + opacity for compositing.
+   No blur repainting, no layout shifts.
+   ───────────────────────────────────────────────── */
+
+.hero-bg-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  contain: layout style paint;
+}
+
+/* Floating blobs — GPU-composited with will-change: transform */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  /* Pre-applied blur as a static property — no repainting */
+  filter: blur(60px);
+  mix-blend-mode: screen;
+}
+
+.hero-blob--1 {
+  width: 380px;
+  height: 380px;
+  top: 15%;
+  right: 20%;
+  background: radial-gradient(circle, rgba(217, 30, 42, 0.25) 0%, transparent 70%);
+  animation: hero-float-1 18s ease-in-out infinite;
+}
+
+.hero-blob--2 {
+  width: 350px;
+  height: 350px;
+  bottom: 20%;
+  left: 15%;
+  background: radial-gradient(circle, rgba(30, 95, 126, 0.25) 0%, transparent 70%);
+  animation: hero-float-2 22s ease-in-out infinite;
+}
+
+.hero-blob--3 {
+  width: 420px;
+  height: 420px;
+  top: 40%;
+  left: 40%;
+  background: radial-gradient(circle, rgba(90, 22, 72, 0.15) 0%, transparent 70%);
+  animation: hero-float-3 25s ease-in-out infinite;
+}
+
+/* Mesh gradient — subtle animated overlay */
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(217, 30, 42, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(30, 95, 126, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(90, 22, 72, 0.06) 0%, transparent 50%);
+  animation: hero-mesh-shift 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ─── Keyframes: transform + opacity ONLY ─── */
+
+@keyframes hero-float-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translate3d(40px, -30px, 0) scale(1.1);
+    opacity: 0.9;
+  }
+  66% {
+    transform: translate3d(-20px, 25px, 0) scale(0.95);
+    opacity: 0.6;
+  }
+}
+
+@keyframes hero-float-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.6;
+  }
+  40% {
+    transform: translate3d(-35px, 40px, 0) scale(1.15);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translate3d(30px, -20px, 0) scale(0.9);
+    opacity: 0.55;
+  }
+}
+
+@keyframes hero-float-3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(25px, -35px, 0) scale(1.08);
+    opacity: 0.7;
+  }
+}
+
+@keyframes hero-mesh-shift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-15px, 10px, 0);
+  }
+}
+
+/* ─── Mobile optimization: smaller blobs ─── */
+@media (max-width: 768px) {
+  .hero-blob--1 { width: 200px; height: 200px; }
+  .hero-blob--2 { width: 180px; height: 180px; }
+  .hero-blob--3 { width: 220px; height: 220px; }
+}
+
+/* ─── Accessibility: respect prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob,
+  .hero-mesh,
+  .avatar-ring-pulse,
+  .animated-gradient-text {
+    animation: none !important;
+  }
+  .hero-blob {
+    opacity: 0.5;
+  }
+}
+
+/* ─── RTL Support ─── */
+[dir="rtl"] .hero-blob--1 {
+  right: auto;
+  left: 20%;
+}
+
+[dir="rtl"] .hero-blob--2 {
+  left: auto;
+  right: 15%;
+}
+
 /* Base Styles */
 :root {
   font-family: var(--font-body);
@@ -227,4 +377,32 @@ input,
 textarea,
 select {
   font-size: 16px;
+}
+
+/* ─── Language transition smoothness ─── */
+[dir] {
+  transition: direction 0s;
+}
+
+/* ─── RTL Arabic Font ─── */
+[dir="rtl"] {
+  font-family: 'Noto Sans Arabic', var(--font-body), sans-serif;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: 'Noto Sans Arabic', var(--font-display), sans-serif;
+}
+
+/* Fix text alignment for RTL */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
 }

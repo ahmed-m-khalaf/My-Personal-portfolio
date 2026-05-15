@@ -3,11 +3,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SectionHeader } from './SectionWrapper';
 import { projects } from '../data/projects';
+import { getT } from '../data/translations';
 import { FaChevronLeft, FaChevronRight, FaPause, FaPlay, FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Projects = () => {
+const Projects = ({ lang = 'en' }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isManualPaused, setIsManualPaused] = useState(false);
     const sectionRef = useRef(null);
@@ -16,7 +17,17 @@ const Projects = () => {
     const imageRef = useRef(null);
     const progressTween = useRef(null);
 
+    const t = getT(lang);
     const currentProject = projects[activeIndex];
+
+    // Get translated project content
+    const translatedProjects = t('content.projects') || [];
+    const translatedProject = Array.isArray(translatedProjects)
+        ? translatedProjects.find(p => p.id === currentProject.id)
+        : null;
+
+    const displayTitle = translatedProject?.title || currentProject.title;
+    const displayDescription = translatedProject?.description || currentProject.description;
 
     // Auto-play logic with GSAP
     useEffect(() => {
@@ -133,7 +144,7 @@ const Projects = () => {
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-card-midnight/30 rounded-full blur-3xl -z-10 translate-y-1/3" />
 
             <div className="max-w-7xl mx-auto px-4">
-                <SectionHeader title="My Projects" subtitle="Featured Work" centered />
+                <SectionHeader title={t('sections.projectsTitle')} subtitle={t('sections.projectsSubtitle')} centered />
 
                 <div
                     className="mt-12 max-w-6xl mx-auto relative group cursor-pointer"
@@ -141,7 +152,10 @@ const Projects = () => {
                     onMouseLeave={handleMouseLeave}
                     onClick={handleContainerClick}
                     role="region"
-                    aria-label={`Projects carousel - ${activeIndex + 1} of ${projects.length}: ${currentProject.title}`}
+                    aria-label={typeof t('aria.projectsCarousel') === 'function'
+                        ? t('aria.projectsCarousel')(activeIndex + 1, projects.length, displayTitle)
+                        : `Projects carousel - ${activeIndex + 1} of ${projects.length}: ${displayTitle}`
+                    }
                     aria-live="polite"
                     tabIndex="0"
                 >
@@ -154,7 +168,7 @@ const Projects = () => {
                                 <div ref={imageRef} className="relative w-full h-64 md:h-[400px] lg:h-[420px]">
                                     <img
                                         src={currentProject.image}
-                                        alt={`${currentProject.title} project screenshot`}
+                                        alt={`${displayTitle} project screenshot`}
                                         className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:scale-[1.02] rounded-lg"
                                         loading="lazy"
                                         decoding="async"
@@ -165,14 +179,14 @@ const Projects = () => {
                                 <button
                                     onClick={(e) => { e.stopPropagation(); handlePrev(); }}
                                     className="lg:hidden absolute top-1/2 left-2 -translate-y-1/2 p-3 rounded-full bg-black/40 backdrop-blur-sm text-white/90 z-20 hover:bg-black/60 transition-all"
-                                    aria-label="Previous project"
+                                    aria-label={t('aria.previousProject')}
                                 >
                                     <FaChevronLeft size={18} />
                                 </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); handleNext(); }}
                                     className="lg:hidden absolute top-1/2 right-2 -translate-y-1/2 p-3 rounded-full bg-black/40 backdrop-blur-sm text-white/90 z-20 hover:bg-black/60 transition-all"
-                                    aria-label="Next project"
+                                    aria-label={t('aria.nextProject')}
                                 >
                                     <FaChevronRight size={18} />
                                 </button>
@@ -198,18 +212,18 @@ const Projects = () => {
                                             color: currentProject.accentColor
                                         }}
                                     >
-                                        ⭐ Featured
+                                        ⭐ {t('ui.featured')}
                                     </span>
                                 )}
 
                                 {/* Title */}
                                 <h3 className="text-2xl md:text-3xl font-display font-bold text-text-white mb-3 leading-tight">
-                                    {currentProject.title}
+                                    {displayTitle}
                                 </h3>
 
                                 {/* Description */}
                                 <p className="text-text-gray text-sm md:text-base mb-5 leading-relaxed line-clamp-3">
-                                    {currentProject.description}
+                                    {displayDescription}
                                 </p>
 
                                 {/* Tags */}
@@ -255,7 +269,7 @@ const Projects = () => {
                                         }}
                                     >
                                         <FaExternalLinkAlt size={12} />
-                                        Live Demo
+                                        {t('ui.liveDemo')}
                                     </a>
                                     <a
                                         href={currentProject.github}
@@ -265,7 +279,7 @@ const Projects = () => {
                                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-white/5 text-text-white border border-white/10 transition-all duration-300 hover:bg-white/10 hover:scale-105"
                                     >
                                         <FaGithub size={14} />
-                                        GitHub
+                                        {t('ui.github')}
                                     </a>
                                 </div>
 
@@ -274,14 +288,14 @@ const Projects = () => {
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handlePrev(); }}
                                         className="p-3.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hover:scale-110 active:scale-95"
-                                        aria-label="Previous project"
+                                        aria-label={t('aria.previousProject')}
                                     >
                                         <FaChevronLeft size={16} />
                                     </button>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handleNext(); }}
                                         className="p-3.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hover:scale-110 active:scale-95"
-                                        aria-label="Next project"
+                                        aria-label={t('aria.nextProject')}
                                     >
                                         <FaChevronRight size={16} />
                                     </button>
@@ -313,7 +327,10 @@ const Projects = () => {
                                     : 'w-2 bg-text-slate/30 hover:bg-text-slate/50'
                                     }`}
                                 style={{ backgroundColor: index === activeIndex ? currentProject.accentColor : undefined }}
-                                aria-label={`Go to project ${index + 1}`}
+                                aria-label={typeof t('aria.goToProject') === 'function'
+                                    ? t('aria.goToProject')(index + 1)
+                                    : `Go to project ${index + 1}`
+                                }
                             />
                         ))}
                     </div>
@@ -332,7 +349,10 @@ const Projects = () => {
                                     borderColor: index === activeIndex ? project.accentColor : undefined,
                                     ringColor: index === activeIndex ? project.accentColor : undefined
                                 }}
-                                aria-label={`View ${project.title}`}
+                                aria-label={typeof t('aria.viewProject') === 'function'
+                                    ? t('aria.viewProject')(project.title)
+                                    : `View ${project.title}`
+                                }
                             >
                                 <img
                                     src={project.image}

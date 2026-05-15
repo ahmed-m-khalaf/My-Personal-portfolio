@@ -1,0 +1,33 @@
+# i18n (Arabic/English) - RTL/LTR
+
+- [ ] Create `src/data/translations.js` with `en` + `ar` strings (UI + aria + placeholders) and project/skills/services/certificates content
+- [ ] Update `src/App.jsx`:
+  - [ ] Add `lang` state (en/ar) + persist to `localStorage`
+  - [ ] Set `dir="rtl"` / `dir="ltr"` based on language on the root container
+  - [ ] Pass `lang` into `Navbar` and/or provide `t()` helper
+- [ ] Update `src/components/Navbar.jsx`:
+  - [ ] Add Arabic/English toggle in navbar
+  - [ ] Replace hardcoded nav labels + CTA with translations
+- [ ] Update `src/components/Hero.jsx`:
+  - [ ] Replace hardcoded CTA (“View My Work”, “Let’s Talk”) and social tooltip
+  - [ ] Replace about.name/title/tagline/bio with translated versions
+- [ ] Update `src/components/About.jsx`:
+  - [ ] Replace “About Me”, contact labels (Email/Phone/Location), and CTAs (“Hire Me”, “Download CV”)
+- [ ] Update `src/components/Skills.jsx`:
+  - [ ] Replace “My Skills” + skill names/categories using translated content
+- [ ] Update `src/components/Services.jsx`:
+  - [ ] Replace SectionHeader + service titles/descriptions with translated content
+- [ ] Update `src/components/Projects.jsx`:
+  - [ ] Replace SectionHeader + “Featured” badge, “Live Demo”, “GitHub”
+  - [ ] Replace aria labels + translated project titles/descriptions/tags
+- [ ] Update `src/components/Certificates.jsx`:
+  - [ ] Replace SectionHeader + “Issued: …”
+  - [ ] Replace aria labels + translated certificate titles
+- [ ] Update `src/components/Contact.jsx`:
+  - [ ] Replace SectionWrapper title/subtitle + all form labels/placeholders/buttons + status messages + “Follow Me”
+  - [ ] Translate contactInfo labels (Email/Phone/Location)
+- [ ] Update `src/components/Footer.jsx`:
+  - [ ] Replace all footer text + quick links labels
+- [ ] Smoke test:
+  - [ ] Toggle language and confirm all sections/UI update
+  - [ ] Confirm RTL/LTR direction and alignment looks correct

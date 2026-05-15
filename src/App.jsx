@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import gsap from 'gsap';
 import Lenis from 'lenis';
 import { Navbar, Footer, Hero } from './components';
@@ -21,6 +21,19 @@ const SectionLoader = () => (
 );
 
 function App() {
+  const [lang, setLang] = useState(() => {
+    const saved = typeof window !== 'undefined' ? window.localStorage.getItem('lang') : null;
+    return saved === 'ar' ? 'ar' : 'en';
+  });
+
+  // Persist language choice
+  useEffect(() => {
+    window.localStorage.setItem('lang', lang);
+    // Update <html> lang and dir attributes for accessibility and CSS
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }, [lang]);
+
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
@@ -52,49 +65,53 @@ function App() {
     };
   }, []);
 
+  const dir = lang === 'ar' ? 'rtl' : 'ltr';
+
   return (
-    <div className="min-h-screen bg-bg-abyss text-text-gray relative overflow-x-hidden">
+    <div dir={dir} lang={lang} className="min-h-screen bg-bg-abyss text-text-gray relative overflow-x-hidden">
+
       {/* Skip to main content - Accessibility */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-crimson focus:text-white focus:rounded-lg focus:outline-none"
       >
-        Skip to main content
+        {lang === 'ar' ? 'تخطي إلى المحتوى الرئيسي' : 'Skip to main content'}
       </a>
 
       <Noise />
-      <Navbar />
+      <Navbar lang={lang} setLang={setLang} />
+
 
       <main id="main-content">
-        <Hero />
+        <Hero lang={lang} />
 
         {/* Lazy loaded sections with Suspense */}
         <Suspense fallback={<SectionLoader />}>
-          <About />
+          <About lang={lang} />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <Skills />
+          <Skills lang={lang} />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <Services />
+          <Services lang={lang} />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <Projects />
+          <Projects lang={lang} />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <Certificates />
+          <Certificates lang={lang} />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <Contact />
+          <Contact lang={lang} />
         </Suspense>
       </main>
 
-      <Footer />
+      <Footer lang={lang} />
 
       {/* Scroll to Top Button */}
       <ScrollToTop />

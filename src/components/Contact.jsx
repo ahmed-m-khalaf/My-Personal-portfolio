@@ -13,6 +13,7 @@ import {
 } from 'react-icons/fa';
 import { about } from '../data/about';
 import { socials } from '../data/socials';
+import { getT } from '../data/translations';
 import SectionWrapper from './SectionWrapper';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -24,7 +25,7 @@ const iconMap = {
     FaInstagram: FaInstagram,
 };
 
-const Contact = () => {
+const Contact = ({ lang = 'en' }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -36,6 +37,8 @@ const Contact = () => {
     const sectionRef = useRef(null);
     const formRef = useRef(null);
     const infoRef = useRef(null);
+
+    const t = getT(lang);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -92,36 +95,35 @@ const Contact = () => {
     const contactInfo = [
         {
             icon: FaEnvelope,
-            label: 'Email',
+            label: t('contact.infoLabels.email'),
             value: 'ahmdalmhmwd939@gmail.com',
             href: 'mailto:ahmdalmhmwd939@gmail.com'
         },
         {
             icon: FaPhone,
-            label: 'Phone',
+            label: t('contact.infoLabels.phone'),
             value: '+20 1125388495',
             href: 'tel:+201125388495'
         },
         {
             icon: FaMapMarkerAlt,
-            label: 'Location',
-            value: about.location || 'Suhag, Egypt',
+            label: t('contact.infoLabels.location'),
+            value: t('content.about.location', about.location || 'Suhag, Egypt'),
             href: null
         }
     ];
 
     return (
-        <SectionWrapper id="contact" title="Get In Touch" subtitle="Let's work together">
+        <SectionWrapper id="contact" title={t('sections.contactTitle')} subtitle={t('sections.contactSubtitle')}>
             <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                 {/* Contact Info Side */}
                 <div ref={infoRef} className="space-y-8">
                     <div>
                         <h3 className="font-display text-2xl md:text-3xl font-bold text-text-white mb-4">
-                            Let's Create Something Amazing
+                            {t('sections.contactHeader')}
                         </h3>
                         <p className="text-text-slate leading-relaxed">
-                            Have a project in mind or just want to say hello? I'd love to hear from you.
-                            Drop me a message and I'll get back to you as soon as possible.
+                            {t('sections.contactBody')}
                         </p>
                     </div>
 
@@ -155,7 +157,7 @@ const Contact = () => {
                     {/* Social Links with Platform Colors */}
                     <div>
                         <h4 className="font-display font-semibold text-text-white mb-4">
-                            Follow Me
+                            {t('sections.followMe')}
                         </h4>
                         <div className="flex gap-4">
                             {socials.map((social) => {
@@ -209,7 +211,7 @@ const Contact = () => {
                                 htmlFor="name"
                                 className="block text-text-gray text-sm font-medium mb-2"
                             >
-                                Your Name
+                                {t('contact.labels.name')}
                             </label>
                             <input
                                 type="text"
@@ -219,7 +221,7 @@ const Contact = () => {
                                 onChange={handleChange}
                                 required
                                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-text-white placeholder:text-text-slate/50 focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
-                                placeholder="John Doe"
+                                placeholder={t('contact.placeholders.name')}
                             />
                         </div>
 
@@ -229,7 +231,7 @@ const Contact = () => {
                                 htmlFor="email"
                                 className="block text-text-gray text-sm font-medium mb-2"
                             >
-                                Your Email
+                                {t('contact.labels.email')}
                             </label>
                             <input
                                 type="email"
@@ -239,7 +241,7 @@ const Contact = () => {
                                 onChange={handleChange}
                                 required
                                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-text-white placeholder:text-text-slate/50 focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
-                                placeholder="john@example.com"
+                                placeholder={t('contact.placeholders.email')}
                             />
                         </div>
 
@@ -249,7 +251,7 @@ const Contact = () => {
                                 htmlFor="message"
                                 className="block text-text-gray text-sm font-medium mb-2"
                             >
-                                Your Message
+                                {t('contact.labels.message')}
                             </label>
                             <textarea
                                 id="message"
@@ -259,7 +261,7 @@ const Contact = () => {
                                 required
                                 rows={5}
                                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-text-white placeholder:text-text-slate/50 focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300 resize-none"
-                                placeholder="Tell me about your project..."
+                                placeholder={t('contact.placeholders.message')}
                             />
                         </div>
 
@@ -272,11 +274,11 @@ const Contact = () => {
                             {isSubmitting ? (
                                 <>
                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                    Sending...
+                                    {t('contact.buttons.sending')}
                                 </>
                             ) : (
                                 <>
-                                    Send Message
+                                    {t('contact.buttons.sendMessage')}
                                     <FaPaperPlane className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                                 </>
                             )}
@@ -285,12 +287,12 @@ const Contact = () => {
                         {/* Status Messages */}
                         {submitStatus === 'success' && (
                             <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-center">
-                                Message sent successfully! I'll get back to you soon.
+                                {t('contact.status.success')}
                             </div>
                         )}
                         {submitStatus === 'error' && (
                             <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-center">
-                                Something went wrong. Please try again later.
+                                {t('contact.status.error')}
                             </div>
                         )}
                     </form>

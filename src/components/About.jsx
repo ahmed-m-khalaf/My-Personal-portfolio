@@ -5,13 +5,16 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaDownload } from 'react-icons/fa'
 import { SectionHeader } from './SectionWrapper';
 import Button from './Button';
 import { about } from '../data/about';
+import { getT } from '../data/translations';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const About = () => {
+const About = ({ lang = 'en' }) => {
     const sectionRef = useRef(null);
     const imageRef = useRef(null);
     const contentRef = useRef(null);
+
+    const t = getT(lang);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -62,10 +65,12 @@ const About = () => {
         return () => ctx.revert();
     }, []);
 
+    const aboutContent = t('content.about');
+
     const contactInfo = [
-        { icon: FaEnvelope, label: 'Email', value: about.email },
-        { icon: FaPhone, label: 'Phone', value: about.phone },
-        { icon: FaMapMarkerAlt, label: 'Location', value: about.location },
+        { icon: FaEnvelope, label: t('contact.infoLabels.email'), value: aboutContent?.email || about.email },
+        { icon: FaPhone, label: t('contact.infoLabels.phone'), value: aboutContent?.phone || about.phone },
+        { icon: FaMapMarkerAlt, label: t('contact.infoLabels.location'), value: aboutContent?.location || about.location },
     ];
 
     return (
@@ -75,7 +80,7 @@ const About = () => {
             className="py-20 md:py-28 px-4"
         >
             <div className="max-w-7xl mx-auto">
-                <SectionHeader title="About Me" centered />
+                <SectionHeader title={t('sections.about')} centered />
 
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-12">
                     {/* Image Side */}
@@ -105,11 +110,11 @@ const About = () => {
                     {/* Content Side */}
                     <div ref={contentRef}>
                         <h3 className="font-display text-2xl md:text-3xl font-bold text-text-white mb-4">
-                            {about.title}
+                            {t('hero.title', about.title)}
                         </h3>
 
                         <p className="text-text-gray text-lg leading-relaxed mb-6">
-                            {about.bio}
+                            {aboutContent?.bio || about.bio}
                         </p>
 
                         {/* Contact Info */}
@@ -130,10 +135,10 @@ const About = () => {
                         {/* CTA Buttons */}
                         <div className="flex flex-wrap gap-4">
                             <Button variant="primary" href="#contact">
-                                Hire Me
+                                {t('sections.hireMe')}
                             </Button>
-                            <Button variant="outline" href={about.resume} icon={FaDownload}>
-                                Download CV
+                            <Button variant="outline" href={aboutContent?.resume || about.resume} icon={FaDownload}>
+                                {t('sections.downloadCv')}
                             </Button>
                         </div>
                     </div>
