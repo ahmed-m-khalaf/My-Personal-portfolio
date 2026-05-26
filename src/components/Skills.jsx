@@ -62,20 +62,6 @@ const Skills = ({ lang = 'en' }) => {
                     scrollTrigger: {
                         trigger: sectionRef.current,
                         start: 'top 80%',
-                    },
-                    onComplete: () => {
-                        // Animate progress bars after cards reveal
-                        const progressBars = cardsRef.current.querySelectorAll('.mt-6 > div');
-                        gsap.fromTo(
-                            progressBars,
-                            { scaleX: 0 },
-                            {
-                                scaleX: 1,
-                                duration: 1,
-                                ease: 'power2.out',
-                                stagger: 0.05
-                            }
-                        );
                     }
                 }
             );
@@ -141,17 +127,14 @@ const Skills = ({ lang = 'en' }) => {
                                     </div>
                                 </div>
 
-                                {/* Progress Bar Track */}
-                                <div className="mt-6 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                                    <div
-                                        className="h-full rounded-full w-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"
-                                        style={{
-                                            backgroundColor: skill.color,
-                                            transformOrigin: lang === 'ar' ? 'right' : 'left',
-                                            // GSAP will animate this from scaleX(0) to scaleX(1)
-                                        }}
-                                    />
-                                </div>
+                                {/* Animated Bottom Glowing Border on Hover */}
+                                <div
+                                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-0 group-hover:w-full transition-all duration-500 ease-out"
+                                    style={{
+                                        backgroundColor: skill.color,
+                                        boxShadow: `0 -4px 12px ${skill.color}60`
+                                    }}
+                                />
 
                                 {/* Glass Layer Hover */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
