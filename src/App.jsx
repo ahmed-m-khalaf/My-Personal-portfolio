@@ -4,9 +4,11 @@ import Lenis from 'lenis';
 import { Navbar, Footer, Hero } from './components';
 import Noise from './components/Noise';
 import ScrollToTop from './components/ScrollToTop';
+import Preloader from './components/Preloader';
 
 // Lazy load below-the-fold components for better initial load performance
 const About = lazy(() => import('./components/About'));
+const Stats = lazy(() => import('./components/Stats'));
 const Skills = lazy(() => import('./components/Skills'));
 const Services = lazy(() => import('./components/Services'));
 const Projects = lazy(() => import('./components/Projects'));
@@ -20,11 +22,19 @@ const SectionLoader = () => (
   </div>
 );
 
+// Section divider — subtle gradient fade between sections
+const SectionDivider = () => (
+  <div className="relative h-px max-w-4xl mx-auto" aria-hidden="true">
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+  </div>
+);
+
 function App() {
   const [lang, setLang] = useState(() => {
     const saved = typeof window !== 'undefined' ? window.localStorage.getItem('lang') : null;
     return saved === 'ar' ? 'ar' : 'en';
   });
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Persist language choice
   useEffect(() => {
@@ -68,7 +78,9 @@ function App() {
   const dir = lang === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <div dir={dir} lang={lang} className="min-h-screen bg-bg-abyss text-text-gray relative overflow-x-hidden">
+    <>
+      {!isLoaded && <Preloader onComplete={() => setIsLoaded(true)} />}
+      <div dir={dir} lang={lang} className="min-h-screen bg-bg-abyss text-text-gray relative overflow-x-hidden">
 
       {/* Skip to main content - Accessibility */}
       <a
@@ -90,21 +102,37 @@ function App() {
           <About lang={lang} />
         </Suspense>
 
+        <SectionDivider />
+
+        <Suspense fallback={<SectionLoader />}>
+          <Stats lang={lang} />
+        </Suspense>
+
+        <SectionDivider />
+
         <Suspense fallback={<SectionLoader />}>
           <Skills lang={lang} />
         </Suspense>
+
+        <SectionDivider />
 
         <Suspense fallback={<SectionLoader />}>
           <Services lang={lang} />
         </Suspense>
 
+        <SectionDivider />
+
         <Suspense fallback={<SectionLoader />}>
           <Projects lang={lang} />
         </Suspense>
 
+        <SectionDivider />
+
         <Suspense fallback={<SectionLoader />}>
           <Certificates lang={lang} />
         </Suspense>
+
+        <SectionDivider />
 
         <Suspense fallback={<SectionLoader />}>
           <Contact lang={lang} />
@@ -116,6 +144,7 @@ function App() {
       {/* Scroll to Top Button */}
       <ScrollToTop />
     </div>
+    </>
   );
 }
 

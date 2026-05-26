@@ -22,7 +22,6 @@ const SectionWrapper = ({
 
         if (!section || !content) return;
 
-        // Create a context for cleanup
         const ctx = gsap.context(() => {
             // Set initial state
             gsap.set(content.children, {
@@ -31,7 +30,7 @@ const SectionWrapper = ({
                 willChange: 'transform, opacity'
             });
 
-            // Create scroll-triggered animation
+            // Scroll-driven staggered reveal
             gsap.to(content.children, {
                 opacity: 1,
                 y: 0,
@@ -43,12 +42,10 @@ const SectionWrapper = ({
                     start: 'top 80%',
                     end: 'top 20%',
                     toggleActions: 'play none none reverse',
-                    // Performance: only animate when in viewport
                     fastScrollEnd: true,
                     preventOverlaps: true
                 },
                 onComplete: () => {
-                    // Clean up will-change after animation
                     gsap.set(content.children, { willChange: 'auto' });
                 }
             });
@@ -80,16 +77,90 @@ const SectionWrapper = ({
     );
 };
 
+// ─── Enhanced Section Header with Word Reveal ───
 export const SectionHeader = ({ title, subtitle, centered = true }) => {
+    const headerRef = useRef(null);
+    const titleRef = useRef(null);
+    const lineRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Title: word-by-word reveal with clip-path
+            const words = titleRef.current?.querySelectorAll('.section-title-word');
+            if (words && words.length > 0) {
+                gsap.fromTo(
+                    words,
+                    {
+                        opacity: 0,
+                        y: 40,
+                        rotateX: 45,
+                        transformOrigin: 'bottom center',
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        rotateX: 0,
+                        duration: 0.7,
+                        stagger: 0.08,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse',
+                        },
+                    }
+                );
+            }
+
+            // Decorative line: scale from center
+            if (lineRef.current) {
+                gsap.fromTo(
+                    lineRef.current,
+                    { scaleX: 0, opacity: 0 },
+                    {
+                        scaleX: 1,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: headerRef.current,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse',
+                        },
+                    }
+                );
+            }
+        }, headerRef);
+
+        return () => ctx.revert();
+    }, [title]);
+
+    // Split title into words for animation
+    const titleWords = typeof title === 'string' ? title.split(' ') : [title];
+
     return (
-        <div className={`mb-12 md:mb-16 ${centered ? 'text-center' : ''}`}>
-            {/* Title */}
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-text-white mb-6">
-                {title}
+        <div ref={headerRef} className={`mb-12 md:mb-16 ${centered ? 'text-center' : ''}`}>
+            {/* Title with word-by-word reveal */}
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-text-white mb-6" style={{ perspective: '600px' }}>
+                <span ref={titleRef} className="inline-flex flex-wrap justify-center gap-x-3">
+                    {titleWords.map((word, i) => (
+                        <span
+                            key={i}
+                            className="section-title-word inline-block"
+                            style={{ willChange: 'transform, opacity' }}
+                        >
+                            {word}
+                        </span>
+                    ))}
+                </span>
             </h2>
 
             {/* Decorative Line with Dots */}
-            <div className={`flex items-center gap-3 ${centered ? 'justify-center' : ''}`}>
+            <div
+                ref={lineRef}
+                className={`flex items-center gap-3 ${centered ? 'justify-center' : ''}`}
+                style={{ transformOrigin: 'center' }}
+            >
                 {/* Left Dot */}
                 <span className="w-3 h-3 rounded-full bg-accent-crimson" />
 
@@ -109,4 +180,3 @@ export const SectionHeader = ({ title, subtitle, centered = true }) => {
 };
 
 export default SectionWrapper;
-

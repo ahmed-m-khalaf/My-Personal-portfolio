@@ -126,20 +126,27 @@ const Navbar = ({ lang, setLang }) => {
                             <li key={link.key} className="relative">
                                 <a
                                     href={link.href}
-                                    className={`text-sm transition-colors duration-200 relative block pb-1 ${isActive
-                                        ? 'text-text-white'
+                                    className={`text-sm transition-all duration-300 relative block pb-2 ${isActive
+                                        ? 'text-text-white font-medium'
                                         : 'text-text-gray hover:text-text-white'
                                         }`}
                                 >
                                     {label}
                                 </a>
-                                {/* Progress Bar */}
-                                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white/10 rounded-full overflow-hidden">
+                                {/* Enhanced Progress Bar */}
+                                <div className="absolute bottom-0 left-0 w-full h-[3px] bg-white/5 rounded-full overflow-hidden">
                                     <div
-                                        className="h-full bg-gradient-to-r from-accent-crimson to-accent-sapphire rounded-full transition-all duration-150 ease-out"
+                                        className="h-full rounded-full transition-all duration-200 ease-out"
                                         style={{
                                             width: `${progress}%`,
-                                            boxShadow: progress > 0 ? '0 0 8px rgba(217, 30, 42, 0.5)' : 'none'
+                                            background: progress > 0
+                                                ? 'linear-gradient(90deg, #D91E2A, #1E5F7E)'
+                                                : 'transparent',
+                                            boxShadow: progress > 50
+                                                ? '0 0 12px rgba(217, 30, 42, 0.6), 0 0 4px rgba(30, 95, 126, 0.4)'
+                                                : progress > 0
+                                                    ? '0 0 6px rgba(217, 30, 42, 0.3)'
+                                                    : 'none'
                                         }}
                                     />
                                 </div>

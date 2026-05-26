@@ -83,5 +83,12 @@ export const skills = [
         icon: "SiVite",
         category: "Tools",
         color: "#FFC91F" // أصفر ذهبي منور
+    },
+    {
+        id: 13,
+        name: "Firebase",
+        icon: "SiFirebase",
+        category: "Backend",
+        color: "#FFCA28" // Firebase Yellow/Orange
     }
 ];

@@ -20,6 +20,7 @@ export const translations = {
     hero: {
       name: "Ahmed M Khalaf",
       title: "Front-End Developer",
+      roles: ["Front-End Developer", "React Specialist", "UI/UX Enthusiast", "Performance Optimizer", "Firebase Developer"],
       tagline:
         "Crafting immersive, high-performance web experiences where motion meets functionality to captivate and convert.",
       ctas: {
@@ -106,7 +107,7 @@ export const translations = {
     /* Content translations — keyed by ID */
     content: {
       about: {
-        email: "ahmdalmhwmd939@gmail.com",
+        email: "ahmdalmhmwd939@gmail.com",
         phone: "+20 1125388495",
         location: "Suhag, Egypt",
         bio:
@@ -126,6 +127,7 @@ export const translations = {
         { id: 10, name: "CSS3", category: "Frontend" },
         { id: 11, name: "Redux", category: "State Management" },
         { id: 12, name: "Vite", category: "Tools" },
+        { id: 13, name: "Firebase", category: "Backend" },
       ],
       services: [
         { id: 1, title: "Web Development", description: "Building fast, SEO-friendly, and scalable websites using modern technologies like React, Next.js, and Tailwind CSS." },
@@ -174,6 +176,7 @@ export const translations = {
     hero: {
       name: "أحمد م. خلف",
       title: "مطور واجهات أمامية",
+      roles: ["مطور واجهات أمامية", "متخصص React", "مهتم بتجربة المستخدم", "محسّن أداء المواقع", "مطور Firebase"],
       tagline:
         "أصنع تجارب ويب غامرة وعالية الأداء حيث تلتقي الحركة بالوظيفة لتجذب وتحوّل.",
       ctas: {
@@ -259,7 +262,7 @@ export const translations = {
     },
     content: {
       about: {
-        email: "ahmdalmhwmd939@gmail.com",
+        email: "ahmdalmhmwd939@gmail.com",
         phone: "+20 1125388495",
         location: "سوهاج، مصر",
         bio:
@@ -279,6 +282,7 @@ export const translations = {
         { id: 10, name: "CSS3", category: "الواجهة الأمامية" },
         { id: 11, name: "Redux", category: "إدارة الحالة" },
         { id: 12, name: "Vite", category: "الأدوات" },
+        { id: 13, name: "Firebase", category: "باك إند" },
       ],
       services: [
         { id: 1, title: "تطوير الويب", description: "بناء مواقع سريعة وصديقة لمحركات البحث وقابلة للتوسع باستخدام تقنيات حديثة مثل React و Next.js و Tailwind CSS." },

@@ -16,13 +16,12 @@ const iconMap = {
     FaInstagram: FaInstagram
 };
 
-// Text Scramble Hook - Performance Optimized
+// ─── Text Scramble Hook (English only) ───
 const useTextScramble = (finalText, options = {}) => {
     const {
         duration = 1.5,
         delay = 0.5,
         characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*',
-        scrambleSpeed = 30 // ms between scramble updates
     } = options;
 
     const [displayText, setDisplayText] = useState('');
@@ -34,23 +33,20 @@ const useTextScramble = (finalText, options = {}) => {
         const totalDuration = duration * 1000;
         const chars = characters.split('');
         let lastUpdate = 0;
-        const updateInterval = 50; // Only update every 50ms for smoother animation
+        const updateInterval = 50;
 
         const animate = (timestamp) => {
             if (!startTimeRef.current) startTimeRef.current = timestamp;
             const elapsed = timestamp - startTimeRef.current;
             const progress = Math.min(elapsed / totalDuration, 1);
 
-            // Only update at intervals for smoother, slower animation
             if (timestamp - lastUpdate < updateInterval && progress < 1) {
                 frameRef.current = requestAnimationFrame(animate);
                 return;
             }
             lastUpdate = timestamp;
 
-            // Calculate how many characters should be revealed
             const revealedCount = Math.floor(finalText.length * progress);
-
             let result = '';
             for (let i = 0; i < finalText.length; i++) {
                 if (finalText[i] === ' ') {
@@ -58,7 +54,6 @@ const useTextScramble = (finalText, options = {}) => {
                 } else if (i < revealedCount) {
                     result += finalText[i];
                 } else {
-                    // Less random changes - only change some letters
                     result += chars[Math.floor(Math.random() * chars.length)];
                 }
             }
@@ -73,7 +68,6 @@ const useTextScramble = (finalText, options = {}) => {
             }
         };
 
-        // Start after delay
         const timeoutId = setTimeout(() => {
             frameRef.current = requestAnimationFrame(animate);
         }, delay * 1000);
@@ -94,7 +88,67 @@ const useTextScramble = (finalText, options = {}) => {
     return { displayText, isComplete };
 };
 
-// Memoized Scramble Letter Component - Fixed spacing
+// ─── Typewriter Hook ───
+const useTypewriter = (words, options = {}) => {
+    const {
+        typeSpeed = 80,
+        deleteSpeed = 50,
+        pauseDuration = 2000,
+        delay = 2500,
+    } = options;
+
+    const [displayText, setDisplayText] = useState('');
+    const [wordIndex, setWordIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [started, setStarted] = useState(false);
+    const timeoutRef = useRef(null);
+
+    useEffect(() => {
+        const startTimeout = setTimeout(() => setStarted(true), delay);
+        return () => clearTimeout(startTimeout);
+    }, [delay]);
+
+    useEffect(() => {
+        if (!started || !words.length) return;
+
+        const currentWord = words[wordIndex];
+
+        const handleType = () => {
+            if (!isDeleting) {
+                // Typing
+                if (displayText.length < currentWord.length) {
+                    timeoutRef.current = setTimeout(() => {
+                        setDisplayText(currentWord.slice(0, displayText.length + 1));
+                    }, typeSpeed);
+                } else {
+                    // Pause before deleting
+                    timeoutRef.current = setTimeout(() => {
+                        setIsDeleting(true);
+                    }, pauseDuration);
+                }
+            } else {
+                // Deleting
+                if (displayText.length > 0) {
+                    timeoutRef.current = setTimeout(() => {
+                        setDisplayText(currentWord.slice(0, displayText.length - 1));
+                    }, deleteSpeed);
+                } else {
+                    setIsDeleting(false);
+                    setWordIndex((prev) => (prev + 1) % words.length);
+                }
+            }
+        };
+
+        handleType();
+        return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        };
+    }, [displayText, isDeleting, wordIndex, words, started, typeSpeed, deleteSpeed, pauseDuration]);
+
+    return displayText;
+};
+
+// ─── Memoized Scramble Letter Component ───
 const ScrambleLetter = memo(({ char, index }) => (
     <span
         key={index}
@@ -127,43 +181,50 @@ const Hero = ({ lang = 'en' }) => {
     const avatarRef = useRef(null);
 
     const t = getT(lang);
+    const isArabic = lang === 'ar';
 
-    // Text Scramble for Name - Slower and simpler
+    // Text content
     const heroName = t('hero.name', about.name);
-    const heroTitle = t('hero.title', about.title);
     const heroTagline = t('hero.tagline', about.tagline);
+    const heroRoles = t('hero.roles') || ['Front-End Developer'];
 
+    // Text Scramble for Name (English only - Arabic uses fade-in words)
     const { displayText: scrambledName, isComplete: nameComplete } = useTextScramble(heroName, {
-        duration: 2.5,  // Slower animation
+        duration: 2.5,
         delay: 0.5,
-        characters: lang === 'ar' ? 'أحمدخلفمطور' : 'AMKHLF'  // Use relevant characters
+        characters: isArabic ? heroName : 'AMKHLF',
     });
 
-    // Text Scramble for Title - Slower
-    const { displayText: scrambledTitle, isComplete: titleComplete } = useTextScramble(heroTitle, {
-        duration: 1.8,  // Slower
-        delay: 1.8,
-        characters: lang === 'ar' ? 'واجهاتأمامية' : 'FrontEndDvlpr-'  // Related to title
+    // Typewriter for roles
+    const typewriterText = useTypewriter(heroRoles, {
+        typeSpeed: isArabic ? 60 : 80,
+        deleteSpeed: isArabic ? 40 : 50,
+        pauseDuration: 2000,
+        delay: 2500,
     });
 
-    // Memoize scrambled letters to prevent unnecessary re-renders
-    const scrambledNameLetters = useMemo(() =>
-        scrambledName.split('').map((char, index) => (
+    // For English: scrambled name split into letters for interactive hover
+    const scrambledNameLetters = useMemo(() => {
+        if (isArabic) return null;
+        return scrambledName.split('').map((char, index) => (
             <ScrambleLetter key={index} char={char} index={index} />
-        )),
-        [scrambledName]
-    );
+        ));
+    }, [scrambledName, isArabic]);
+
+    // For Arabic: split into words for proper connected rendering
+    const arabicNameWords = isArabic ? heroName.split(' ') : null;
 
     useEffect(() => {
-        // Check for prefers-reduced-motion
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         const ctx = gsap.context(() => {
             if (prefersReducedMotion) {
-                // Skip animations, just show content
                 if (avatarRef.current) gsap.set(avatarRef.current, { opacity: 1 });
                 const textElements = textRef.current?.querySelectorAll('p, div:not(.scramble-container)');
                 if (textElements) gsap.set(textElements, { opacity: 1 });
+                // Show Arabic name words immediately
+                const arabicWords = textRef.current?.querySelectorAll('.arabic-word');
+                if (arabicWords) gsap.set(arabicWords, { opacity: 1, y: 0 });
                 return;
             }
 
@@ -172,21 +233,41 @@ const Hero = ({ lang = 'en' }) => {
             // Animate Avatar
             tl.fromTo(
                 avatarRef.current,
-                { x: lang === 'ar' ? -100 : 100, opacity: 0, scale: 0.9 },
+                { x: isArabic ? -100 : 100, opacity: 0, scale: 0.9 },
                 { x: 0, opacity: 1, scale: 1, duration: 1 }
             );
 
-            // Animate Text Content (Staggered) - Skip h1 since it has scramble effect
+            // For Arabic: animate name words one by one
+            if (isArabic) {
+                const arabicWords = textRef.current?.querySelectorAll('.arabic-word');
+                if (arabicWords) {
+                    tl.fromTo(
+                        arabicWords,
+                        { opacity: 0, y: 30, filter: 'blur(8px)' },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            filter: 'blur(0px)',
+                            duration: 0.6,
+                            stagger: 0.15,
+                            ease: 'power3.out'
+                        },
+                        '-=0.3'
+                    );
+                }
+            }
+
+            // Animate Text Content (Staggered) - Skip h1 since it has its own effect
             const textElements = textRef.current.querySelectorAll('p, div:not(.scramble-container)');
             tl.fromTo(
                 textElements,
-                { x: lang === 'ar' ? 50 : -50, opacity: 0 },
+                { x: isArabic ? 50 : -50, opacity: 0 },
                 { x: 0, opacity: 1, duration: 0.6, stagger: 0.15 },
                 '-=0.4'
             );
 
-            // Interactive Text (Rubber band effect on hover) - Only after scramble complete
-            if (nameComplete) {
+            // Interactive Text (Rubber band effect on hover) - English only, after scramble
+            if (!isArabic && nameComplete) {
                 const letters = gsap.utils.toArray('.interactive-letter');
                 letters.forEach((letter) => {
                     letter.addEventListener('mouseenter', () => {
@@ -215,7 +296,7 @@ const Hero = ({ lang = 'en' }) => {
         return () => {
             ctx.revert();
         };
-    }, [nameComplete, lang]);
+    }, [nameComplete, lang, isArabic]);
 
     return (
         <section
@@ -231,16 +312,33 @@ const Hero = ({ lang = 'en' }) => {
 
                     {/* Text Content */}
                     <div ref={textRef} className="flex-1 text-center lg:text-start px-2 sm:px-0">
-                        {/* Name with Text Scramble Effect */}
+                        {/* Name */}
                         <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight scramble-container">
-                            <span className="block text-text-white font-mono">
-                                {scrambledNameLetters}
-                            </span>
+                            {isArabic ? (
+                                /* Arabic: word-level animation — keeps letter connections */
+                                <span className="block text-text-white">
+                                    {arabicNameWords.map((word, i) => (
+                                        <span
+                                            key={i}
+                                            className="arabic-word inline-block opacity-0 mx-1"
+                                            style={{ willChange: 'transform, opacity, filter' }}
+                                        >
+                                            {word}
+                                        </span>
+                                    ))}
+                                </span>
+                            ) : (
+                                /* English: character-level scramble + interactive hover */
+                                <span className="block text-text-white font-mono">
+                                    {scrambledNameLetters}
+                                </span>
+                            )}
                         </h1>
 
-                        {/* Title with Text Scramble */}
-                        <p className="text-xl md:text-2xl text-accent-crimson font-semibold mb-4 font-mono h-8">
-                            {scrambledTitle}
+                        {/* Typewriter Title */}
+                        <p className="text-xl md:text-2xl text-accent-crimson font-semibold mb-4 font-mono h-8 flex items-center justify-center lg:justify-start gap-0">
+                            <span>{typewriterText}</span>
+                            <span className="inline-block w-0.5 h-6 bg-accent-crimson animate-pulse ml-0.5" />
                         </p>
 
                         {/* Tagline */}

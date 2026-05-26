@@ -1,6 +1,7 @@
 import React from 'react';
-import { FaGithub, FaLinkedin, FaFacebook, FaInstagram, FaHeart } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaFacebook, FaInstagram, FaHeart, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { socials } from '../data/socials';
+import { about } from '../data/about';
 import { getT } from '../data/translations';
 
 const iconMap = {
@@ -17,38 +18,61 @@ const Footer = ({ lang = 'en' }) => {
     const quickLinks = [
         { name: t('nav.home'), href: '#home' },
         { name: t('nav.about'), href: '#about' },
+        { name: t('nav.skills'), href: '#skills' },
         { name: t('nav.projects'), href: '#projects' },
         { name: t('nav.contact'), href: '#contact' },
     ];
 
+    const contactInfo = [
+        {
+            icon: FaEnvelope,
+            value: about.email,
+            href: `mailto:${about.email}`,
+        },
+        {
+            icon: FaPhone,
+            value: about.phone,
+            href: `tel:${about.phone.replace(/\s/g, '')}`,
+        },
+        {
+            icon: FaMapMarkerAlt,
+            value: t('content.about.location', about.location),
+            href: null,
+        },
+    ];
+
     return (
-        <footer className="bg-bg-abyss border-t border-white/10">
-            <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+        <footer className="bg-bg-abyss border-t border-white/10 relative overflow-hidden">
+            {/* Subtle background glow */}
+            <div className="absolute top-0 left-1/4 w-96 h-48 bg-accent-crimson/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-48 bg-accent-sapphire/5 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-4 py-16 relative">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
                     {/* Logo & Description */}
-                    <div>
+                    <div className="lg:col-span-1">
                         <a
                             href="#home"
-                            className="font-display text-2xl font-bold text-text-white"
+                            className="inline-block font-display text-2xl font-bold text-text-white transition-all duration-300 hover:scale-105"
                         >
-                            7AMAMA🤍<span className="text-accent-crimson">.</span>
+                            AMK<span className="text-accent-crimson">.</span>
                         </a>
-                        <p className="mt-4 text-text-slate text-sm max-w-xs">
+                        <p className="mt-4 text-text-slate text-sm leading-relaxed max-w-xs">
                             {t('footer.description')}
                         </p>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="font-display font-semibold text-text-white mb-4">
+                        <h4 className="font-display font-semibold text-text-white mb-5 text-sm uppercase tracking-wider">
                             {t('sections.footerQuickLinks')}
                         </h4>
-                        <ul className="space-y-2">
+                        <ul className="space-y-3">
                             {quickLinks.map((link) => (
                                 <li key={link.href}>
                                     <a
                                         href={link.href}
-                                        className="text-text-slate hover:text-accent-crimson transition-colors text-sm"
+                                        className="text-text-slate hover:text-accent-crimson transition-all duration-300 text-sm hover:translate-x-1 inline-block"
                                     >
                                         {link.name}
                                     </a>
@@ -57,13 +81,42 @@ const Footer = ({ lang = 'en' }) => {
                         </ul>
                     </div>
 
+                    {/* Contact Info */}
+                    <div>
+                        <h4 className="font-display font-semibold text-text-white mb-5 text-sm uppercase tracking-wider">
+                            {t('contact.infoLabels.email', 'Contact')}
+                        </h4>
+                        <ul className="space-y-3">
+                            {contactInfo.map((info, index) => {
+                                const content = (
+                                    <span className="flex items-center gap-3 text-text-slate text-sm group-hover:text-text-white transition-colors duration-300">
+                                        <info.icon className="w-4 h-4 text-accent-crimson flex-shrink-0" />
+                                        <span className="break-all">{info.value}</span>
+                                    </span>
+                                );
+
+                                return (
+                                    <li key={index} className="group">
+                                        {info.href ? (
+                                            <a href={info.href} className="block">
+                                                {content}
+                                            </a>
+                                        ) : (
+                                            <div>{content}</div>
+                                        )}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+
                     {/* Socials */}
                     <div>
-                        <h4 className="font-display font-semibold text-text-white mb-4">
+                        <h4 className="font-display font-semibold text-text-white mb-5 text-sm uppercase tracking-wider">
                             {t('sections.footerConnect')}
                         </h4>
-                        <div className="flex gap-4">
-                            {socials.map((social) => {
+                        <div className="flex gap-3 flex-wrap">
+                            {socials.filter(s => s.icon !== 'FaEnvelope').map((social) => {
                                 const IconComponent = iconMap[social.icon];
                                 return (
                                     <a
@@ -71,7 +124,7 @@ const Footer = ({ lang = 'en' }) => {
                                         href={social.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="group relative w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 text-text-gray transition-all duration-500 ease-out hover:-translate-y-3 hover:shadow-lg"
+                                        className="group relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-text-gray border border-white/5 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-lg hover:border-white/20"
                                         style={{
                                             '--hover-color': social.color
                                         }}
@@ -79,12 +132,12 @@ const Footer = ({ lang = 'en' }) => {
                                     >
                                         {IconComponent && (
                                             <IconComponent
-                                                className="w-5 h-5 transition-all duration-500 ease-out group-hover:text-[var(--hover-color)] group-hover:scale-110"
+                                                className="w-4 h-4 transition-all duration-500 ease-out group-hover:text-[var(--hover-color)] group-hover:scale-110"
                                             />
                                         )}
-                                        {/* Subtle glow on hover */}
+                                        {/* Glow on hover */}
                                         <div
-                                            className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-25 transition-all duration-500 ease-out"
+                                            className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-all duration-500 ease-out"
                                             style={{
                                                 backgroundColor: social.color,
                                                 boxShadow: `0 6px 20px ${social.color}40`
@@ -102,8 +155,8 @@ const Footer = ({ lang = 'en' }) => {
                     <p className="text-text-slate text-sm">
                         © {currentYear} Ahmed M Khalaf. {t('footer.copyright')}
                     </p>
-                    <p className="text-text-slate text-sm flex items-center gap-1">
-                        {t('footer.madeBy')} <FaHeart className="text-accent-crimson w-4 h-4" /> {t('footer.madeBySuffix')}
+                    <p className="text-text-slate text-sm flex items-center gap-1.5">
+                        {t('footer.madeBy')} <FaHeart className="text-accent-crimson w-3.5 h-3.5 animate-pulse" /> {t('footer.madeBySuffix')}
                     </p>
                 </div>
             </div>

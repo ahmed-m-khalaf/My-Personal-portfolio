@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SectionHeader } from './SectionWrapper';
@@ -20,6 +20,24 @@ const Certificates = ({ lang = 'en' }) => {
 
     // Get translated certificates content
     const translatedCerts = t('content.certificates') || [];
+
+    const handleNext = useCallback(() => {
+        setActiveIndex((prev) => (prev + 1) % certificates.length);
+    }, []);
+
+    const handlePrev = useCallback(() => {
+        setActiveIndex((prev) => (prev - 1 + certificates.length) % certificates.length);
+    }, []);
+
+    const handleDotClick = useCallback((index) => {
+        setActiveIndex(index);
+        setIsManualPaused(false);
+    }, []);
+
+    // Toggle Manual Pause on Click
+    const handleContainerClick = useCallback(() => {
+        setIsManualPaused((prev) => !prev);
+    }, []);
 
     // Auto-play logic with GSAP
     useEffect(() => {
@@ -56,25 +74,9 @@ const Certificates = ({ lang = 'en' }) => {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, [activeIndex, isManualPaused]);
+    }, [activeIndex, isManualPaused, handleNext]);
 
-    const handleNext = () => {
-        setActiveIndex((prev) => (prev + 1) % certificates.length);
-    };
 
-    const handlePrev = () => {
-        setActiveIndex((prev) => (prev - 1 + certificates.length) % certificates.length);
-    };
-
-    const handleDotClick = (index) => {
-        setActiveIndex(index);
-        setIsManualPaused(false);
-    };
-
-    // Toggle Manual Pause on Click
-    const handleContainerClick = () => {
-        setIsManualPaused(!isManualPaused);
-    };
 
     // Hover pauses ONLY if not already manually paused
     const handleMouseEnter = () => {
@@ -109,7 +111,7 @@ const Certificates = ({ lang = 'en' }) => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [handleNext, handlePrev, handleContainerClick]);
 
     const currentCert = certificates[activeIndex];
 

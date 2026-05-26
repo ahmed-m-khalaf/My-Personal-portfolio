@@ -1,0 +1,71 @@
+AHMED MOHAMED KHALAF MOHAMED
+Front-End Developer | React.js Developer
+Sohag, Egypt | +20 1125388495 | ahmdalmhmwd939@gmail.com
+Portfolio: https://7amama.tech/ | LinkedIn: https://www.linkedin.com/in/ahmed-m-khalaf-9157aa319 | GitHub: https://github.com/ahmed-m-khalaf
+
+PROFESSIONAL SUMMARY
+Front-End Developer focused on building responsive, user-centered web applications with React, JavaScript, TypeScript, Tailwind CSS, REST APIs, and modern frontend tooling. Hands-on experience across 12+ portfolio projects covering dashboards, booking flows, e-commerce storefronts, real estate interfaces, algorithm visualization, and performance-focused portfolio sites. Strong foundation in reusable components, UI/UX principles, state management, API integration, Git/GitHub, SEO, and deployment on Netlify/Vercel.
+
+CORE SKILLS
+Frontend: HTML5, CSS3, JavaScript ES6+, TypeScript, React.js, Next.js, Tailwind CSS, Vite
+State and Data: Context API, Redux, Local Storage, REST APIs, Axios, Firebase, Firestore, Recharts, Finnhub API
+UI/UX and Performance: Responsive Design, Component-Based Architecture, Accessibility Basics, SEO, Performance Optimization, GSAP, Framer Motion
+Tools: Git, GitHub, Netlify, Vercel, Browser DevTools, Canva
+
+EDUCATION
+Faculty of Computers and Information (FCI), Egyptian E-Learning University (EELU) - Sohag
+Bachelor's Degree Candidate - Expected Graduation: 2026
+
+PROJECT EXPERIENCE
+SkyReserve X - Full-Stack Flight Booking Platform
+Technologies: React, TypeScript, Firebase, Firestore, Tailwind CSS, Framer Motion, GSAP
+Live Demo: https://skyreserve1.netlify.app/
+GitHub: https://github.com/ahmed-m-khalaf/SkyReserve.git
+- Built a serverless flight booking platform with authentication and real-time database flows using Firebase and Firestore.
+- Implemented a premium responsive UI with typed React components, Tailwind CSS layouts, and animation effects.
+
+StockSphere - Stock Market Dashboard
+Technologies: React, Vite, Axios, Recharts, REST API, Finnhub API, Netlify
+Live Demo: https://stocksphrere.netlify.app/
+GitHub: https://github.com/ahmed-m-khalaf/StockSphere.git
+- Developed a responsive stock dashboard with watchlists, tables, chart-based visualization, and market insights.
+- Integrated REST API data with Axios and Recharts to present financial data in a clear, scan-friendly interface.
+
+SmartSpend - Expense Tracking Dashboard
+Technologies: React, Context API, Local Storage, Recharts, CSS3, Netlify
+Live Demo: https://smartspend22.netlify.app/
+GitHub: https://github.com/ahmed-m-khalaf/SmartSpend.git
+- Created a finance dashboard with transaction history, budget insights, and interactive data visualization.
+- Managed lightweight client-side state with Context API and Local Storage for a smooth user experience.
+
+DriveLux - Premium Car Rental Platform
+Technologies: React, Vite, Tailwind CSS, Framer Motion, React Router, Context API, Netlify
+Live Demo: https://drivelux1.netlify.app/
+GitHub: https://github.com/ahmed-m-khalaf/DriveLux.git
+- Built a car rental experience with fleet catalog, vehicle comparison, wishlist, dashboard, and booking flow.
+- Used React Router and Context API with responsive Tailwind CSS screens and polished motion interactions.
+
+Nexora Store - E-Commerce Storefront
+Technologies: React, E-Commerce, Tailwind CSS, Responsive Design, Product Catalog, Vercel
+Live Demo: https://nexora-store-six.vercel.app/
+GitHub: https://github.com/ahmed-m-khalaf/Nexora-store.git
+- Designed a modern storefront with product catalog, product galleries, and intuitive browsing patterns.
+- Structured reusable UI components and responsive layouts for a clean shopping experience.
+
+Word Ladder Solver - BFS Algorithm Visualizer
+Technologies: Python, HTML5, CSS3, JavaScript, BFS Algorithm, Data Structures, Vercel
+Live Demo: https://word-loader-solver-by-bfs-algorithm.vercel.app/
+GitHub: https://github.com/ahmed-m-khalaf/Word-Loader-Solver-BY-BFS-ALGORITHM.git
+- Built an algorithm visualization tool that finds shortest word transformation paths using Breadth-First Search.
+- Presented search logic and data structures through a simple browser interface for easier learning and debugging.
+
+Additional Projects: Estate Elite, Todo List App, and My Portfolio - responsive React interfaces covering real estate browsing, CRUD task management, SEO optimization, and animated portfolio presentation.
+
+CERTIFICATIONS
+- CCNA: Switching, Routing, and Wireless Essentials - Cisco Networking Academy - Feb 2026
+- Security, Compliance, and Identity Fundamentals - Microsoft - Sep 2025
+- HTML, CSS, JS for Modern Web Developers - Udemy - Jul 2025
+- Professional Soft Skills Learning Pathway - LinkedIn Learning - Jun 2025
+- McKinsey Forward Program - McKinsey & Company - Dec 2025
+- Forward Program Badge (Adaptability & Resilience) - McKinsey.org - Dec 2025
+- Canva Essentials - Canva - 2025

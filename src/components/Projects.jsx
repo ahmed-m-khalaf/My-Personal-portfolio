@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SectionHeader } from './SectionWrapper';
@@ -28,6 +28,30 @@ const Projects = ({ lang = 'en' }) => {
 
     const displayTitle = translatedProject?.title || currentProject.title;
     const displayDescription = translatedProject?.description || currentProject.description;
+
+    const handleNext = useCallback(() => {
+        setActiveIndex((prev) => (prev + 1) % projects.length);
+    }, []);
+
+    const handlePrev = useCallback(() => {
+        setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    }, []);
+
+    const handleDotClick = useCallback((index) => {
+        setActiveIndex(index);
+        setIsManualPaused(false);
+    }, []);
+
+    const handleThumbnailClick = useCallback((index) => {
+        setActiveIndex(index);
+        setIsManualPaused(false);
+    }, []);
+
+    const handleContainerClick = useCallback((e) => {
+        // Don't toggle if clicking on buttons or links
+        if (e.target.closest('a') || e.target.closest('button')) return;
+        setIsManualPaused((prev) => !prev);
+    }, []);
 
     // Auto-play logic with GSAP
     useEffect(() => {
@@ -71,31 +95,9 @@ const Projects = ({ lang = 'en' }) => {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, [activeIndex, isManualPaused]);
+    }, [activeIndex, isManualPaused, currentProject.accentColor, handleNext]);
 
-    const handleNext = () => {
-        setActiveIndex((prev) => (prev + 1) % projects.length);
-    };
 
-    const handlePrev = () => {
-        setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    };
-
-    const handleDotClick = (index) => {
-        setActiveIndex(index);
-        setIsManualPaused(false);
-    };
-
-    const handleThumbnailClick = (index) => {
-        setActiveIndex(index);
-        setIsManualPaused(false);
-    };
-
-    const handleContainerClick = (e) => {
-        // Don't toggle if clicking on buttons or links
-        if (e.target.closest('a') || e.target.closest('button')) return;
-        setIsManualPaused(!isManualPaused);
-    };
 
     const handleMouseEnter = () => {
         if (!isManualPaused && progressTween.current) {
@@ -128,7 +130,7 @@ const Projects = ({ lang = 'en' }) => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [handleNext, handlePrev, handleContainerClick]);
 
     return (
         <section
