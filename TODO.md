@@ -1,10 +1,10 @@
 # i18n (Arabic/English) - RTL/LTR
 
-- [ ] Create `src/data/translations.js` with `en` + `ar` strings (UI + aria + placeholders) and project/skills/services/certificates content
-- [ ] Update `src/App.jsx`:
-  - [ ] Add `lang` state (en/ar) + persist to `localStorage`
-  - [ ] Set `dir="rtl"` / `dir="ltr"` based on language on the root container
-  - [ ] Pass `lang` into `Navbar` and/or provide `t()` helper
+- [x] Create `src/data/translations.js` with `en` + `ar` strings (UI + aria + placeholders) and project/skills/services/certificates content
+- [x] Update `src/App.jsx`:
+  - [x] Add `lang` state (en/ar) + persist to `localStorage`
+  - [x] Set `dir="rtl"` / `dir="ltr"` based on language on the root container
+  - [x] Pass `lang` into `Navbar` and/or provide `t()` helper
 - [ ] Update `src/components/Navbar.jsx`:
   - [ ] Add Arabic/English toggle in navbar
   - [ ] Replace hardcoded nav labels + CTA with translations
@@ -28,6 +28,6 @@
   - [ ] Translate contactInfo labels (Email/Phone/Location)
 - [ ] Update `src/components/Footer.jsx`:
   - [ ] Replace all footer text + quick links labels
-- [ ] Smoke test:
-  - [ ] Toggle language and confirm all sections/UI update
-  - [ ] Confirm RTL/LTR direction and alignment looks correct
+- [x] Smoke test:
+  - [x] Toggle language and confirm all sections/UI update
+  - [x] Confirm RTL/LTR direction and alignment looks correct

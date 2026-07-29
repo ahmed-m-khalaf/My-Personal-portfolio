@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AMK Blog - Ahmed M. Khalaf</title>
+    <link>https://amk.tech/blog</link>
+    <description>Insights and articles on frontend development, AI, and web technology.</description>
+    <language>ar</language>
+    <lastBuildDate>Wed, 29 Jul 2026 04:28:22 GMT</lastBuildDate>
+    <atom:link href="https://amk.tech/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title><![CDATA[إمتى هنبطل نكلم الـ LLMs وكأنها مجرد Google Search متطور؟]]></title>
+      <link>https://amk.tech/blog/prompt-engineering-rctr</link>
+      <guid isPermaLink="true">https://amk.tech/blog/prompt-engineering-rctr</guid>
+      <description><![CDATA[السر الحقيقي في قوة نماذج الذكاء الاصطناعي مش في الموديل نفسه، بل في طريقة تواصلك معاه. تعرف على إطار عمل RCTR اللي بيخليك تطلع أفضل نتيجة من أول مرة.]]></description>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
+      <category>AI & Productivity</category>
+    </item>
+    <item>
+      <title><![CDATA[Next.js VS React]]></title>
+      <link>https://amk.tech/blog/react-vs-nextjs</link>
+      <guid isPermaLink="true">https://amk.tech/blog/react-vs-nextjs</guid>
+      <description><![CDATA[مقارنة عملية وبسيطة بين React و Next.js لتوضيح الفروقات الجوهرية في الـ Rendering والـ Data Fetching وهيكلة المشاريع الكبيرة.]]></description>
+      <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
+      <category>React & Next.js</category>
+    </item>
+    <item>
+      <title><![CDATA[JavaScript vs TypeScript]]></title>
+      <link>https://amk.tech/blog/javascript-vs-typescript</link>
+      <guid isPermaLink="true">https://amk.tech/blog/javascript-vs-typescript</guid>
+      <description><![CDATA[الفرق الحقيقي بين JavaScript و TypeScript مش في السينتاكس، ده في طريقة تفكيرك كمطور وإزاي الكود بتاعك يقدر يكبر من غير ما ينهار.]]></description>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <category>Frontend</category>
+    </item>
+    <item>
+      <title><![CDATA[الكتابة السريعة: المهارة اللي هتغير إنتاجيتك من غير ما تاخد بالك]]></title>
+      <link>https://amk.tech/blog/touch-typing-productivity</link>
+      <guid isPermaLink="true">https://amk.tech/blog/touch-typing-productivity</guid>
+      <description><![CDATA[الكتابة السريعة مش رفاهية، دي مهارة بتأثر بشكل مباشر على سرعتك وتركيزك ودقتك سواء كنت مبرمج أو طالب.]]></description>
+      <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
+      <category>Productivity</category>
+    </item>
+  </channel>
+</rss>

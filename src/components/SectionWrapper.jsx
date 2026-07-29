@@ -26,7 +26,8 @@ const SectionWrapper = ({
             // Set initial state
             gsap.set(content.children, {
                 opacity: 0,
-                y: 60,
+                y: 20,
+                scale: 0.98,
                 willChange: 'transform, opacity'
             });
 
@@ -34,13 +35,13 @@ const SectionWrapper = ({
             gsap.to(content.children, {
                 opacity: 1,
                 y: 0,
-                duration: 0.8,
-                stagger: 0.15,
+                scale: 1,
+                duration: 0.7,
+                stagger: 0.1,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: section,
-                    start: 'top 80%',
-                    end: 'top 20%',
+                    start: 'top 85%',
                     toggleActions: 'play none none reverse',
                     fastScrollEnd: true,
                     preventOverlaps: true
@@ -85,23 +86,22 @@ export const SectionHeader = ({ title, subtitle, centered = true }) => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Title: word-by-word reveal with clip-path
+            // Title reveal (clean opacity + y + scale)
             const words = titleRef.current?.querySelectorAll('.section-title-word');
             if (words && words.length > 0) {
                 gsap.fromTo(
                     words,
                     {
                         opacity: 0,
-                        y: 40,
-                        rotateX: 45,
-                        transformOrigin: 'bottom center',
+                        y: 20,
+                        scale: 0.98,
                     },
                     {
                         opacity: 1,
                         y: 0,
-                        rotateX: 0,
-                        duration: 0.7,
-                        stagger: 0.08,
+                        scale: 1,
+                        duration: 0.6,
+                        stagger: 0.06,
                         ease: 'power3.out',
                         scrollTrigger: {
                             trigger: headerRef.current,

@@ -1,11 +1,24 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
+import mdx from '@mdx-js/rollup'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
-
+  plugins: [
+    { enforce: 'pre', ...mdx({ remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter] }) },
+    react(), 
+    tailwindcss()
+  ],
+  resolve: {
+    alias: {
+      react: path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom')
+    }
+  },
   build: {
     // Optimize chunk splitting for better caching
     rollupOptions: {
@@ -13,7 +26,7 @@ export default defineConfig({
         manualChunks: (id) => {
           // Split node_modules into separate chunks
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
+            if (id.includes('/node_modules/react/') || id.includes('/node_modules/react-dom/') || id.includes('\\node_modules\\react\\') || id.includes('\\node_modules\\react-dom\\')) {
               return 'vendor-react';
             }
             if (id.includes('gsap')) {
@@ -53,14 +66,14 @@ export default defineConfig({
 
   // Development server options
   server: {
-    headers: {
-      'Cache-Control': 'max-age=31536000'
-    }
+    // Removed aggressive Cache-Control which was breaking HMR and causing 504 errors
+    port: 5173,
+    strictPort: true,
   },
 
   // Optimize dependencies for faster dev
   optimizeDeps: {
-    include: ['react', 'react-dom', 'gsap', 'lenis']
+    include: ['react', 'react-dom', 'gsap', 'lenis', 'react-router-dom', 'react-helmet-async']
   }
 })
 

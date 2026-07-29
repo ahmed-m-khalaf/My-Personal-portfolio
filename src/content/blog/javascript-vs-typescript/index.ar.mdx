@@ -1,0 +1,66 @@
+---
+title: "JavaScript vs TypeScript"
+titleAr: "JavaScript vs TypeScript"
+slug: "javascript-vs-typescript"
+date: "2026-07-22"
+updatedAt: "2026-07-22"
+draft: false
+featured: true
+category: "Frontend"
+tags: ["JavaScript", "TypeScript", "Frontend"]
+excerpt: "The real difference between JavaScript and TypeScript isn't about syntax — it's about how you think as a developer and how your codebase scales."
+excerptAr: "الفرق الحقيقي بين JavaScript و TypeScript مش في السينتاكس، ده في طريقة تفكيرك كمطور وإزاي الكود بتاعك يقدر يكبر من غير ما ينهار."
+author: "Ahmed M Khalaf"
+cover: "/blog/javascript-vs-typescript/cover.jpg"
+readingTime: 4
+keywords: ["JavaScript", "TypeScript", "Type Safety", "Frontend Development"]
+seoTitle: "JavaScript vs TypeScript: متى تختار كل واحدة ولماذا"
+seoDescription: "مقارنة شاملة بين JavaScript و TypeScript من منظور عملي: الأداء، الصيانة، وتجربة التطوير في المشاريع الحقيقية."
+canonical: "https://amk.tech/blog/javascript-vs-typescript"
+---
+
+الخناقة بين JavaScript و TypeScript مش مجرد مقارنة بين لغتين. دي حرفياً تغيير كامل في طريقة تفكيرك كـ Frontend Developer.
+
+### JavaScript: منطقة الراحة اللي كلنا بنحبها
+
+JavaScript كانت ومازالت الـ Comfort Zone بتاعتنا. مرنة جداً، تكتب الكود وتشوف النتيجة فوراً، وتبني UI من غير قيود. وده جميل جداً في المراحل الأولى من أي مشروع، لأنك بتركز على الفكرة والسرعة مش على التعريفات والأنواع.
+
+لكن المشكلة الحقيقية بتظهر لما التطبيق يبدأ يكبر. فجأة تلاقي نفسك في مواقف زي:
+
+- بتباصي Props غلط بين الـ Components، والخطأ مش بيظهر غير في Runtime.
+- Error زي `Cannot read properties of undefined` يظهر في Production بعد ما كل حاجة كانت شغالة تمام في Development.
+- شغال بـ Redux أو Zustand والـ State مش زي ما متوقع لأن الـ Shape بتاعه اتغير في مكان تاني من غير ما تاخد بالك.
+- عملت `dispatch` غلط وكل الـ App اتأثر.
+
+وهنا بتسأل نفسك السؤال المهم: **هل المرونة دي تستاهل المخاطرة؟ ولا محتاج تحكم أكتر؟**
+
+### TypeScript: مش قيود، دي شبكة أمان
+
+هنا بييجي دور TypeScript. مش عشان يمنعك تكتب JavaScript، لكن عشان يخليك تكتب كود **أوضح، أذكى، ومتوقع**.
+
+أول ما بتعرّف الـ Types بتاعتك، بتحصل على مميزات ملموسة في تجربة التطوير اليومية:
+
+- **الـ Editor بيفهم الكود بتاعك:** الـ IntelliSense بيكمل الأكواد بدقة لأنه عارف كل Property وكل Method متاح.
+- **صعب تستخدم Data مش موجودة:** لو حاولت توصل لـ Property مش معرّف، الكود بيحذرك قبل ما تعمل Save أصلاً.
+- **الـ Refactoring بقى آمن:** تقدر تغير اسم Function أو تعدل Shape بتاع Object، والـ Compiler هيوريك كل مكان في الكود محتاج يتعدل.
+
+### النتيجة العملية
+
+- تعمل Refactoring وانت متطمن إن مفيش حاجة هتتكسر من وراك.
+- تمسك Bugs بدري قبل ما توصل Production وتأثر على المستخدمين.
+- الـ Codebase تبقى مفهومة لأي Developer جديد ينضم للتيم، لأن الـ Types بتشرح نفسها.
+- الـ Code Review بيبقى أسرع لأن الـ Reviewer مش محتاج يتخيل الـ Data Flow، هو شايفه قدامه.
+
+### خلينا نبقى واقعيين
+
+في الأول TypeScript هتحسه تقيل. وهتحس إنك بتضيع وقت في كتابة Types و Interfaces بدل ما تكتب Logic. ده شعور طبيعي جداً وكل Developer مر بيه.
+
+لكن مع الوقت هتكتشف إن الوقت اللي بتقضيه في تعريف الأنواع هو نفسه الوقت اللي كنت بتضيعه في Debugging مشاكل كانت ممكن تتمنع من الأساس. يعني مش إنت بتضيع وقت، إنت بتستثمره في مكان أذكى.
+
+### الخلاصة
+
+**JavaScript** مناسبة للـ MVP والسرعة. لما تكون عايز تختبر فكرة بسرعة أو تعمل Prototype، مفيش داعي تعقّد الأمور.
+
+لكن **TypeScript** هي اللي هتبني بيها System يعيش ويكبر معاك صح. لو مشروعك فيه أكتر من Developer واحد، أو هيفضل يتطور لفترة طويلة، فالاستثمار في TypeScript مش رفاهية، ده ضرورة.
+
+السؤال مش "JavaScript ولا TypeScript"، السؤال هو: **"المشروع ده هيكبر ولا هيفضل صغير؟"** والإجابة هي اللي هتحدد اختيارك.

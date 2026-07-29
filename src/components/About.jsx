@@ -6,6 +6,7 @@ import { SectionHeader } from './SectionWrapper';
 import Button from './Button';
 import { about } from '../data/about';
 import { getT } from '../data/translations';
+import ProgressiveImage from './ProgressiveImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,31 +19,34 @@ const About = ({ lang = 'en' }) => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Image animation (Entrance + Subtle Float)
+            // Entrance animation for Image
             gsap.fromTo(
                 imageRef.current,
-                { x: -50, opacity: 0 },
+                { y: 30, opacity: 0, scale: 0.98 },
                 {
-                    x: 0,
+                    y: 0,
                     opacity: 1,
-                    duration: 1.2,
+                    scale: 1,
+                    duration: 1,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: sectionRef.current,
                         start: 'top 80%',
-                    },
-                    onComplete: () => {
-                        // Subtle floating animation after entrance
-                        gsap.to(imageRef.current, {
-                            y: -15,
-                            duration: 3,
-                            ease: 'power1.inOut',
-                            yoyo: true,
-                            repeat: -1
-                        });
                     }
                 }
             );
+
+            // Light Parallax Scrub for Image (~15px move)
+            gsap.to(imageRef.current, {
+                y: -15,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            });
 
             // Content animation
             gsap.fromTo(
@@ -90,16 +94,15 @@ const About = ({ lang = 'en' }) => {
 
                         {/* Image Container */}
                         <div className="relative rounded-2xl overflow-hidden border-2 border-white/10">
-                            <img
+                            <ProgressiveImage
                                 src="/images/Screenshot 2026-01-27 012041.png"
                                 alt={about.name}
-                                className="w-full aspect-[4/5] object-cover object-top"
-                                loading="lazy"
-                                decoding="async"
+                                placeholder="#0F172A"
+                                className="w-full aspect-[4/5]"
                             />
 
                             {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-bg-abyss/60 via-transparent to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-bg-abyss/60 via-transparent to-transparent pointer-events-none" />
                         </div>
 
                         {/* Decorative Elements */}

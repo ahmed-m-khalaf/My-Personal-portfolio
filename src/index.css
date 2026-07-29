@@ -263,6 +263,102 @@
   right: 15%;
 }
 
+/* ─────────────────────────────────────────────────
+   Aurora Background (CSS-only)
+   ───────────────────────────────────────────────── */
+.aurora-bg-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  contain: layout style paint;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+  mix-blend-mode: screen;
+  opacity: 0.15;
+}
+
+.aurora-blob-1 {
+  width: 600px;
+  height: 600px;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, var(--color-accent-crimson) 0%, transparent 70%);
+  animation: aurora-move-1 25s ease-in-out infinite alternate;
+}
+
+.aurora-blob-2 {
+  width: 700px;
+  height: 700px;
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle, var(--color-accent-sapphire) 0%, transparent 70%);
+  animation: aurora-move-2 30s ease-in-out infinite alternate;
+}
+
+.aurora-blob-3 {
+  width: 500px;
+  height: 500px;
+  top: 40%;
+  left: 40%;
+  background: radial-gradient(circle, #5A1648 0%, transparent 70%);
+  animation: aurora-move-3 20s ease-in-out infinite alternate;
+}
+
+.aurora-mesh {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.3;
+}
+
+@keyframes aurora-move-1 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(50px, 30px, 0) scale(1.1); }
+  100% { transform: translate3d(-30px, 50px, 0) scale(0.95); }
+}
+
+@keyframes aurora-move-2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-60px, -40px, 0) scale(1.05); }
+  100% { transform: translate3d(40px, -20px, 0) scale(1.15); }
+}
+
+@keyframes aurora-move-3 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(30px, -50px, 0) scale(1.1); }
+  100% { transform: translate3d(-40px, 30px, 0) scale(0.9); }
+}
+
+/* Reduced motion for Aurora */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob {
+    animation: none !important;
+    opacity: 0.1;
+  }
+}
+
+/* ─────────────────────────────────────────────────
+   Tilt Effect Utilities
+   ───────────────────────────────────────────────── */
+.tilt-card-wrapper {
+  perspective: 1000px;
+}
+.tilt-card-inner {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+
 /* Base Styles */
 :root {
   font-family: var(--font-body);
@@ -316,18 +412,18 @@ h6 {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 19px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--color-bg-abyss);
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--color-accent-crimson), var(--color-card-midnight));
-  border-radius: 5px;
-  border: 12px solid var(--color-bg-abyss);
+  border-radius: 4px;
+  border: 2px solid var(--color-bg-abyss);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -405,4 +501,112 @@ select {
 
 [dir="rtl"] .text-right {
   text-align: left;
+}
+
+/* ─────────────────────────────────────────────────
+   Blog Prose Typography (MDX Reading Experience)
+   ───────────────────────────────────────────────── */
+.prose {
+  color: var(--color-text-gray);
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: var(--color-text-white);
+  font-family: var(--font-display);
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}
+
+.prose h1 { font-size: 2.25rem; font-weight: 800; }
+.prose h2 { font-size: 1.875rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3em; }
+.prose h3 { font-size: 1.5rem; font-weight: 600; }
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+.prose a {
+  color: var(--color-accent-crimson);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px dashed rgba(217, 30, 42, 0.5);
+  transition: all 0.2s ease;
+}
+
+.prose a:hover {
+  color: #ff3344;
+  border-bottom-style: solid;
+}
+
+.prose strong {
+  color: var(--color-text-white);
+  font-weight: 600;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--color-accent-crimson);
+  padding-left: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  color: var(--color-text-slate);
+  background: rgba(255, 255, 255, 0.03);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 0 8px 8px 0;
+}
+
+[dir="rtl"] .prose blockquote {
+  border-left: none;
+  border-right: 4px solid var(--color-accent-crimson);
+  padding-left: 0;
+  padding-right: 1.5rem;
+  border-radius: 8px 0 0 8px;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+[dir="rtl"] .prose ul, [dir="rtl"] .prose ol {
+  padding-left: 0;
+  padding-right: 1.625em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose ul > li {
+  list-style-type: disc;
+}
+
+.prose ol > li {
+  list-style-type: decimal;
+}
+
+.prose hr {
+  border-color: rgba(255,255,255,0.1);
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+/* Inline code styling */
+.prose :not(pre) > code {
+  background-color: rgba(255,255,255,0.1);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.875em;
+  color: #e2e8f0;
 }

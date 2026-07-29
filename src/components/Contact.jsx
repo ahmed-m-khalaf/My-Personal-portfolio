@@ -14,6 +14,7 @@ import {
 import { about } from '../data/about';
 import { socials } from '../data/socials';
 import { getT } from '../data/translations';
+import emailjs from '@emailjs/browser';
 import SectionWrapper from './SectionWrapper';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -79,12 +80,28 @@ const Contact = ({ lang = 'en' }) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate form submission (replace with EmailJS later)
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+            const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+            const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+            if (!serviceId || !templateId || !publicKey) {
+                console.warn("EmailJS keys are missing from environment variables.");
+                // Fallback to simulation if keys are missing (for dev)
+                await new Promise(resolve => setTimeout(resolve, 1500));
+            } else {
+                await emailjs.sendForm(
+                    serviceId,
+                    templateId,
+                    formRef.current,
+                    publicKey
+                );
+            }
+
             setSubmitStatus('success');
             setFormData({ name: '', email: '', message: '' });
-        } catch {
+        } catch (error) {
+            console.error('EmailJS Error:', error);
             setSubmitStatus('error');
         } finally {
             setIsSubmitting(false);
@@ -206,13 +223,7 @@ const Contact = ({ lang = 'en' }) => {
 
                     <form onSubmit={handleSubmit} className="relative space-y-6">
                         {/* Name Field */}
-                        <div>
-                            <label
-                                htmlFor="name"
-                                className="block text-text-gray text-sm font-medium mb-2"
-                            >
-                                {t('contact.labels.name')}
-                            </label>
+                        <div className="relative">
                             <input
                                 type="text"
                                 id="name"
@@ -220,19 +231,19 @@ const Contact = ({ lang = 'en' }) => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-text-white placeholder:text-text-slate/50 focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
-                                placeholder={t('contact.placeholders.name')}
+                                placeholder=" "
+                                className="peer w-full px-4 pt-6 pb-2 rounded-xl bg-white/5 border border-white/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
                             />
+                            <label
+                                htmlFor="name"
+                                className="absolute start-4 top-2 text-xs font-medium text-accent-crimson peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-text-slate/60 peer-focus:top-2 peer-focus:text-xs peer-focus:text-accent-crimson transition-all duration-200 pointer-events-none"
+                            >
+                                {t('contact.labels.name')}
+                            </label>
                         </div>
 
                         {/* Email Field */}
-                        <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-text-gray text-sm font-medium mb-2"
-                            >
-                                {t('contact.labels.email')}
-                            </label>
+                        <div className="relative">
                             <input
                                 type="email"
                                 id="email"
@@ -240,29 +251,40 @@ const Contact = ({ lang = 'en' }) => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-text-white placeholder:text-text-slate/50 focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
-                                placeholder={t('contact.placeholders.email')}
+                                placeholder=" "
+                                className="peer w-full px-4 pt-6 pb-2 rounded-xl bg-white/5 border border-white/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
                             />
+                            <label
+                                htmlFor="email"
+                                className="absolute start-4 top-2 text-xs font-medium text-accent-crimson peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-text-slate/60 peer-focus:top-2 peer-focus:text-xs peer-focus:text-accent-crimson transition-all duration-200 pointer-events-none"
+                            >
+                                {t('contact.labels.email')}
+                            </label>
                         </div>
 
                         {/* Message Field */}
-                        <div>
-                            <label
-                                htmlFor="message"
-                                className="block text-text-gray text-sm font-medium mb-2"
-                            >
-                                {t('contact.labels.message')}
-                            </label>
+                        <div className="relative">
                             <textarea
                                 id="message"
                                 name="message"
                                 value={formData.message}
                                 onChange={handleChange}
                                 required
+                                maxLength={500}
                                 rows={5}
-                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-text-white placeholder:text-text-slate/50 focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300 resize-none"
-                                placeholder={t('contact.placeholders.message')}
+                                placeholder=" "
+                                className="peer w-full px-4 pt-6 pb-6 rounded-xl bg-white/5 border border-white/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300 resize-none"
                             />
+                            <label
+                                htmlFor="message"
+                                className="absolute start-4 top-2 text-xs font-medium text-accent-crimson peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-text-slate/60 peer-focus:top-2 peer-focus:text-xs peer-focus:text-accent-crimson transition-all duration-200 pointer-events-none"
+                            >
+                                {t('contact.labels.message')}
+                            </label>
+                            {/* Character Counter */}
+                            <div className="absolute end-3 bottom-2 text-[10px] font-mono text-text-slate/60">
+                                {formData.message.length} / 500
+                            </div>
                         </div>
 
                         {/* Submit Button */}

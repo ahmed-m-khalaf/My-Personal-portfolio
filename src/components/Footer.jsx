@@ -84,7 +84,7 @@ const Footer = ({ lang = 'en' }) => {
                     {/* Contact Info */}
                     <div>
                         <h4 className="font-display font-semibold text-text-white mb-5 text-sm uppercase tracking-wider">
-                            {t('contact.infoLabels.email', 'Contact')}
+                            {t('sections.footerContact', 'Contact')}
                         </h4>
                         <ul className="space-y-3">
                             {contactInfo.map((info, index) => {

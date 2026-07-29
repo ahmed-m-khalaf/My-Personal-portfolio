@@ -1,0 +1,121 @@
+[
+  {
+    "slug": "prompt-engineering-rctr",
+    "title": "إمتى هنبطل نكلم الـ LLMs وكأنها مجرد Google Search متطور؟",
+    "titleAr": "إمتى هنبطل نكلم الـ LLMs وكأنها مجرد Google Search متطور؟",
+    "date": "2026-07-28",
+    "updatedAt": "2026-07-28",
+    "draft": false,
+    "featured": true,
+    "category": "AI & Productivity",
+    "tags": [
+      "Prompt Engineering",
+      "LLM",
+      "Productivity"
+    ],
+    "excerpt": "السر الحقيقي في قوة نماذج الذكاء الاصطناعي مش في الموديل نفسه، بل في طريقة تواصلك معاه. تعرف على إطار عمل RCTR اللي بيخليك تطلع أفضل نتيجة من أول مرة.",
+    "excerptAr": "السر الحقيقي في قوة نماذج الذكاء الاصطناعي مش في الموديل نفسه، بل في طريقة تواصلك معاه. تعرف على إطار عمل RCTR اللي بيخليك تطلع أفضل نتيجة من أول مرة.",
+    "author": "Ahmed M Khalaf",
+    "cover": "/blog/prompt-engineering-rctr/cover.png",
+    "readingTime": 4,
+    "keywords": [
+      "Prompt Engineering",
+      "RCTR",
+      "AI",
+      "LLM",
+      "Frontend"
+    ],
+    "seoTitle": "إطار عمل RCTR لهندسة الأوامر Prompt Engineering",
+    "seoDescription": "تعرف على كيفية كتابة Prompts احترافية لنماذج الذكاء الاصطناعي باستخدام إطار RCTR العملي.",
+    "canonical": "https://amk.tech/blog/prompt-engineering-rctr"
+  },
+  {
+    "slug": "react-vs-nextjs",
+    "title": "Next.js VS React",
+    "titleAr": "Next.js VS React",
+    "date": "2026-07-25",
+    "updatedAt": "2026-07-25",
+    "draft": false,
+    "featured": false,
+    "category": "React & Next.js",
+    "tags": [
+      "React",
+      "Nextjs",
+      "Performance",
+      "Frontend"
+    ],
+    "excerpt": "مقارنة عملية وبسيطة بين React و Next.js لتوضيح الفروقات الجوهرية في الـ Rendering والـ Data Fetching وهيكلة المشاريع الكبيرة.",
+    "excerptAr": "مقارنة عملية وبسيطة بين React و Next.js لتوضيح الفروقات الجوهرية في الـ Rendering والـ Data Fetching وهيكلة المشاريع الكبيرة.",
+    "author": "Ahmed M Khalaf",
+    "cover": "/blog/react-vs-nextjs/cover.png",
+    "readingTime": 4,
+    "keywords": [
+      "React",
+      "Next.js",
+      "Server Components",
+      "SSR",
+      "CSR"
+    ],
+    "seoTitle": "الفرق الحقيقي بين React و Next.js",
+    "seoDescription": "الفرق بين React و Next.js… تعرف على الفروقات الجوهرية في الأداء والـ SEO وكيفية الاختيار بينهما.",
+    "canonical": "https://amk.tech/blog/react-vs-nextjs"
+  },
+  {
+    "slug": "javascript-vs-typescript",
+    "title": "JavaScript vs TypeScript",
+    "titleAr": "JavaScript vs TypeScript",
+    "date": "2026-07-22",
+    "updatedAt": "2026-07-22",
+    "draft": false,
+    "featured": true,
+    "category": "Frontend",
+    "tags": [
+      "JavaScript",
+      "TypeScript",
+      "Frontend"
+    ],
+    "excerpt": "The real difference between JavaScript and TypeScript isn't about syntax — it's about how you think as a developer and how your codebase scales.",
+    "excerptAr": "الفرق الحقيقي بين JavaScript و TypeScript مش في السينتاكس، ده في طريقة تفكيرك كمطور وإزاي الكود بتاعك يقدر يكبر من غير ما ينهار.",
+    "author": "Ahmed M Khalaf",
+    "cover": "/blog/javascript-vs-typescript/cover.jpg",
+    "readingTime": 4,
+    "keywords": [
+      "JavaScript",
+      "TypeScript",
+      "Type Safety",
+      "Frontend Development"
+    ],
+    "seoTitle": "JavaScript vs TypeScript: متى تختار كل واحدة ولماذا",
+    "seoDescription": "مقارنة شاملة بين JavaScript و TypeScript من منظور عملي: الأداء، الصيانة، وتجربة التطوير في المشاريع الحقيقية.",
+    "canonical": "https://amk.tech/blog/javascript-vs-typescript"
+  },
+  {
+    "slug": "touch-typing-productivity",
+    "title": "Touch Typing: The Skill That Silently Boosts Your Productivity",
+    "titleAr": "الكتابة السريعة: المهارة اللي هتغير إنتاجيتك من غير ما تاخد بالك",
+    "date": "2026-07-20",
+    "updatedAt": "2026-07-20",
+    "draft": false,
+    "featured": false,
+    "category": "Productivity",
+    "tags": [
+      "Typing",
+      "Productivity",
+      "Skills"
+    ],
+    "excerpt": "Touch typing is not just a nice-to-have skill — it directly impacts your speed, focus, and accuracy as a developer or student.",
+    "excerptAr": "الكتابة السريعة مش رفاهية، دي مهارة بتأثر بشكل مباشر على سرعتك وتركيزك ودقتك سواء كنت مبرمج أو طالب.",
+    "author": "Ahmed M Khalaf",
+    "cover": "/blog/touch-typing-productivity/cover.jpg",
+    "readingTime": 3,
+    "keywords": [
+      "Touch Typing",
+      "Productivity",
+      "Typing Speed",
+      "Developer Skills"
+    ],
+    "seoTitle": "لماذا الكتابة السريعة مهارة أساسية لكل مبرمج وطالب",
+    "seoDescription": "تعرف على أهمية الكتابة السريعة دون النظر للكيبورد وكيف تبدأ تتعلمها وتحسن إنتاجيتك بشكل ملحوظ.",
+    "canonical": "https://amk.tech/blog/touch-typing-productivity"
+  }
+]

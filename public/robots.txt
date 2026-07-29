@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://7amama.tech/sitemap.xml
+Sitemap: https://amk.tech/sitemap.xml

@@ -21,6 +21,7 @@ import {
 import { SectionHeader } from './SectionWrapper';
 import { skills } from '../data/skills';
 import { getT } from '../data/translations';
+import { useTiltEffect } from '../hooks/useTiltEffect';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,64 +87,69 @@ const Skills = ({ lang = 'en' }) => {
                     ref={cardsRef}
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
                 >
-                    {skills.map((skill) => {
-                        const IconComponent = iconMap[skill.icon];
-                        // Find translated content for this skill
-                        const translated = Array.isArray(translatedSkills)
-                            ? translatedSkills.find(s => s.id === skill.id)
-                            : null;
-                        const displayName = translated?.name || skill.name;
-                        const displayCategory = translated?.category || skill.category;
-
-                        return (
-                            <div
-                                key={skill.id}
-                                className="group relative p-8 rounded-3xl bg-card-midnight/20 backdrop-blur-xl border border-white/5 overflow-hidden transition-all duration-500 hover:border-white/20"
-                                style={{ '--skill-color': skill.color }}
-                            >
-                                {/* Dynamic Background Glow */}
-                                <div
-                                    className="absolute -right-10 -top-10 w-40 h-40 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-3xl"
-                                    style={{ backgroundColor: skill.color }}
-                                />
-
-                                <div className="relative z-10 flex items-center gap-6">
-                                    {/* Icon Container */}
-                                    <div
-                                        className="w-20 h-20 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-white/10 shadow-xl"
-                                        style={{ color: skill.color }}
-                                    >
-                                        {IconComponent && <IconComponent className="w-10 h-10 transition-transform duration-500 group-hover:rotate-12" />}
-                                    </div>
-
-                                    {/* Text Content */}
-                                    <div>
-                                        <h4 className="font-display text-2xl font-bold text-text-white mb-1 group-hover:text-white transition-colors">
-                                            {displayName}
-                                        </h4>
-                                        <p className="text-text-slate text-sm font-medium uppercase tracking-wider">
-                                            {displayCategory}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Animated Bottom Glowing Border on Hover */}
-                                <div
-                                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-0 group-hover:w-full transition-all duration-500 ease-out"
-                                    style={{
-                                        backgroundColor: skill.color,
-                                        boxShadow: `0 -4px 12px ${skill.color}60`
-                                    }}
-                                />
-
-                                {/* Glass Layer Hover */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                            </div>
-                        );
-                    })}
+                    {skills.map((skill) => (
+                        <SkillCard key={skill.id} skill={skill} translatedSkills={translatedSkills} />
+                    ))}
                 </div>
             </div>
         </section>
+    );
+};
+
+const SkillCard = ({ skill, translatedSkills }) => {
+    const cardRef = useRef(null);
+    useTiltEffect(cardRef, { maxTilt: 5, scale: 1.01 });
+
+    const IconComponent = iconMap[skill.icon];
+    const translated = Array.isArray(translatedSkills)
+        ? translatedSkills.find(s => s.id === skill.id)
+        : null;
+    const displayName = translated?.name || skill.name;
+    const displayCategory = translated?.category || skill.category;
+
+    return (
+        <div
+            ref={cardRef}
+            className="group relative rounded-3xl bg-card-midnight/20 backdrop-blur-xl border border-white/5 overflow-hidden transition-colors duration-500 hover:border-white/20 tilt-card-wrapper"
+            style={{ '--skill-color': skill.color }}
+        >
+            <div className="tilt-card-inner p-8 w-full h-full relative">
+                {/* Dynamic Background Glow */}
+                <div
+                    className="absolute -right-10 -top-10 w-40 h-40 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-3xl"
+                    style={{ backgroundColor: skill.color }}
+                />
+
+                <div className="relative z-10 flex items-center gap-6">
+                    {/* Icon Container */}
+                    <div
+                        className="w-20 h-20 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-white/10 shadow-xl"
+                        style={{ color: skill.color }}
+                    >
+                        {IconComponent && <IconComponent className="w-10 h-10 transition-transform duration-500 group-hover:rotate-12" />}
+                    </div>
+
+                    {/* Text Content */}
+                    <div>
+                        <h4 className="font-display text-2xl font-bold text-text-white mb-1 group-hover:text-white transition-colors">
+                            {displayName}
+                        </h4>
+                        <p className="text-text-slate text-sm font-medium uppercase tracking-wider">
+                            {displayCategory}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Animated Bottom Glowing Border on Hover */}
+                <div
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-0 group-hover:w-full transition-all duration-500 ease-out"
+                    style={{
+                        backgroundColor: skill.color,
+                        boxShadow: `0 -4px 12px ${skill.color}60`
+                    }}
+                />
+            </div>
+        </div>
     );
 };
 

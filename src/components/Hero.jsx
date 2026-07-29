@@ -6,6 +6,7 @@ import { socials } from '../data/socials';
 import { getT } from '../data/translations';
 import avatar from '../assets/avatar.jpg';
 import { FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa';
+import AuroraBackground from './AuroraBackground';
 
 // Icon mapping
 const iconMap = {
@@ -158,22 +159,7 @@ const ScrambleLetter = memo(({ char, index }) => (
     </span>
 ));
 
-// ─── Animated Hero Background (CSS-only, GPU-optimized) ───
-const HeroBackground = memo(() => (
-    <div className="hero-bg-container" aria-hidden="true">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-bg-abyss via-card-midnight/10 to-bg-abyss" />
-
-        {/* Floating blobs — use CSS animations with transform + opacity only */}
-        <div className="hero-blob hero-blob--1" />
-        <div className="hero-blob hero-blob--2" />
-        <div className="hero-blob hero-blob--3" />
-
-        {/* Mesh gradient overlay */}
-        <div className="hero-mesh" />
-    </div>
-));
-HeroBackground.displayName = 'HeroBackground';
+// Removed old HeroBackground component as we are using the new AuroraBackground
 
 const Hero = ({ lang = 'en' }) => {
     const containerRef = useRef(null);
@@ -304,8 +290,8 @@ const Hero = ({ lang = 'en' }) => {
             id="home"
             className="min-h-screen flex items-center px-6 sm:px-8 md:px-12 lg:px-4 pt-24 pb-12 relative overflow-hidden"
         >
-            {/* Animated Hero Background — CSS-only, no JS overhead */}
-            <HeroBackground />
+            {/* Animated Aurora Background — CSS-only, no JS overhead */}
+            <AuroraBackground />
 
             <div className="relative z-10 max-w-7xl mx-auto w-full">
                 <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20">

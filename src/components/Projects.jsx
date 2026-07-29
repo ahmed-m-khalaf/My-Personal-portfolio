@@ -5,6 +5,7 @@ import { SectionHeader } from './SectionWrapper';
 import { projects } from '../data/projects';
 import { getT } from '../data/translations';
 import { FaChevronLeft, FaChevronRight, FaPause, FaPlay, FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import useSwipeGestures from '../hooks/useSwipeGestures';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,6 +37,8 @@ const Projects = ({ lang = 'en' }) => {
     const handlePrev = useCallback(() => {
         setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
     }, []);
+
+    const swipeHandlers = useSwipeGestures(handleNext, handlePrev);
 
     const handleDotClick = useCallback((index) => {
         setActiveIndex(index);
@@ -149,10 +152,11 @@ const Projects = ({ lang = 'en' }) => {
                 <SectionHeader title={t('sections.projectsTitle')} subtitle={t('sections.projectsSubtitle')} centered />
 
                 <div
-                    className="mt-12 max-w-6xl mx-auto relative group cursor-pointer"
+                    className="mt-12 max-w-6xl mx-auto relative group cursor-grab active:cursor-grabbing select-none"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     onClick={handleContainerClick}
+                    {...swipeHandlers}
                     role="region"
                     aria-label={typeof t('aria.projectsCarousel') === 'function'
                         ? t('aria.projectsCarousel')(activeIndex + 1, projects.length, displayTitle)

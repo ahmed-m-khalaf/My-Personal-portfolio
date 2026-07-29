@@ -5,6 +5,8 @@ import { SectionHeader } from './SectionWrapper';
 import { certificates } from '../data/certificates';
 import { getT } from '../data/translations';
 import { FaChevronLeft, FaChevronRight, FaAward, FaPause, FaPlay } from 'react-icons/fa';
+import ProgressiveImage from './ProgressiveImage';
+import useSwipeGestures from '../hooks/useSwipeGestures';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,6 +30,8 @@ const Certificates = ({ lang = 'en' }) => {
     const handlePrev = useCallback(() => {
         setActiveIndex((prev) => (prev - 1 + certificates.length) % certificates.length);
     }, []);
+
+    const swipeHandlers = useSwipeGestures(handleNext, handlePrev);
 
     const handleDotClick = useCallback((index) => {
         setActiveIndex(index);
@@ -136,10 +140,11 @@ const Certificates = ({ lang = 'en' }) => {
                 <SectionHeader title={t('sections.certificatesTitle')} subtitle={t('sections.certificatesSubtitle')} centered />
 
                 <div
-                    className="mt-12 max-w-6xl mx-auto relative group cursor-pointer"
+                    className="mt-12 max-w-6xl mx-auto relative group cursor-grab active:cursor-grabbing select-none"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     onClick={handleContainerClick}
+                    {...swipeHandlers}
                     role="region"
                     aria-label={typeof t('aria.certificatesCarousel') === 'function'
                         ? t('aria.certificatesCarousel')(activeIndex + 1, certificates.length, displayTitle)
@@ -155,12 +160,10 @@ const Certificates = ({ lang = 'en' }) => {
                             {/* Image Section */}
                             <div className="w-full md:w-3/5 p-8 md:p-12 flex items-center justify-center bg-gradient-to-br from-white/5 to-transparent">
                                 <div ref={contentRef} className="relative w-full h-72 md:h-[450px]">
-                                    <img
+                                    <ProgressiveImage
                                         src={currentCert.image}
                                         alt={`${displayTitle} certificate issued by ${displayIssuer}`}
                                         className="w-full h-full object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.3)] transition-transform duration-500 hover:scale-105"
-                                        loading="lazy"
-                                        decoding="async"
                                     />
                                 </div>
                             </div>
