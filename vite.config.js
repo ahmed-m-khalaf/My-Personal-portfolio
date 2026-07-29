@@ -22,27 +22,7 @@ export default defineConfig({
   build: {
     // Optimize chunk splitting for better caching
     rollupOptions: {
-      output: {
-        manualChunks: (id) => {
-          // Split node_modules into separate chunks
-          if (id.includes('node_modules')) {
-            if (id.includes('/node_modules/react/') || id.includes('/node_modules/react-dom/') || id.includes('\\node_modules\\react\\') || id.includes('\\node_modules\\react-dom\\')) {
-              return 'vendor-react';
-            }
-            if (id.includes('gsap')) {
-              return 'vendor-gsap';
-            }
-            if (id.includes('lenis')) {
-              return 'vendor-lenis';
-            }
-            if (id.includes('react-icons')) {
-              return 'vendor-icons';
-            }
-            // All other dependencies
-            return 'vendor';
-          }
-        }
-      }
+      // Using Vite's default chunking strategy to avoid circular dependencies
     },
     // Minification with better compression
     minify: 'esbuild',
