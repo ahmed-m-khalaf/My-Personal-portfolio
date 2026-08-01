@@ -1,5 +1,35 @@
 [
   {
+    "slug": "ai-as-your-coding-partner",
+    "title": "AI AS YOUR CODING PARTNER",
+    "titleAr": "الذكاء الاصطناعي كشريك لك في البرمجة",
+    "date": "2026-08-01",
+    "updatedAt": "2026-08-01",
+    "draft": false,
+    "featured": true,
+    "category": "AI & Productivity",
+    "tags": [
+      "AI",
+      "Productivity",
+      "Workflow",
+      "Engineering"
+    ],
+    "excerpt": "The biggest reason I stopped using AI as a Code Generator and started treating it as an Engineering Partner.",
+    "excerptAr": "أكبر سبب خلاني أبطل أستخدم AI كـ Code Generator، وأبدأ أتعامل معاه كـ Engineering Partner.",
+    "author": "Ahmed M Khalaf",
+    "cover": "/blog/ai-as-your-coding-partner/cover.png",
+    "readingTime": 3,
+    "keywords": [
+      "AI",
+      "Coding",
+      "Workflow",
+      "Productivity"
+    ],
+    "seoTitle": "الذكاء الاصطناعي كشريك في البرمجة",
+    "seoDescription": "أكبر تغيير في هندسة البرمجيات هو أن الذكاء الاصطناعي أصبح يساعدنا في اتخاذ قرارات هندسية أفضل، وليس مجرد كتابة الكود.",
+    "canonical": "https://amk.tech/blog/ai-as-your-coding-partner"
+  },
+  {
     "slug": "prompt-engineering-rctr",
     "title": "إمتى هنبطل نكلم الـ LLMs وكأنها مجرد Google Search متطور؟",
     "titleAr": "إمتى هنبطل نكلم الـ LLMs وكأنها مجرد Google Search متطور؟",
