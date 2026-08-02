@@ -115,11 +115,11 @@ const Navbar = ({ lang, setLang }) => {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? 'py-3 bg-bg-abyss/90 backdrop-blur-xl border-b border-white/10 shadow-lg'
+                ? 'py-3 bg-bg-abyss/90 backdrop-blur-xl border-b border-black/10 shadow-lg'
                 : 'py-5 bg-transparent'
                 }`}
         >
-            <div className="absolute top-0 left-0 w-full h-[2px] z-50 bg-white/5">
+            <div className="absolute top-0 left-0 w-full h-[2px] z-50 bg-black/5">
                 <div 
                     className="h-full bg-gradient-to-r from-accent-crimson to-accent-sapphire"
                     style={{ width: `${sectionProgress._global || 0}%`, transition: 'width 0.1s' }}
@@ -162,8 +162,8 @@ const Navbar = ({ lang, setLang }) => {
                                 <Component
                                     {...linkProps}
                                     className={`px-4 py-2 rounded-full text-sm transition-all duration-300 relative flex items-center justify-center ${isActive
-                                        ? 'text-text-white font-medium bg-white/10 shadow-inner'
-                                        : 'text-text-gray hover:text-text-white hover:bg-white/5'
+                                        ? 'text-text-white font-medium bg-black/10 shadow-inner'
+                                        : 'text-text-gray hover:text-text-white hover:bg-black/5'
                                         }`}
                                 >
                                     {label}
@@ -180,7 +180,7 @@ const Navbar = ({ lang, setLang }) => {
                     <button
                         type="button"
                         onClick={toggleLang}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-text-white font-semibold text-sm hover:bg-white/10 transition-all duration-300"
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-black/5 border border-black/10 text-text-white font-semibold text-sm hover:bg-black/10 transition-all duration-300"
                         aria-label={lang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'}
                     >
                         <FaGlobe className="w-4 h-4 text-accent-crimson" />
@@ -206,7 +206,7 @@ const Navbar = ({ lang, setLang }) => {
 
                 <button
                     onClick={toggleMobileMenu}
-                    className="md:hidden p-3 rounded-lg bg-white/5 border border-white/10 text-text-white hover:text-accent-crimson hover:bg-white/10 transition-all duration-300"
+                    className="md:hidden p-3 rounded-lg bg-black/5 border border-black/10 text-text-white hover:text-accent-crimson hover:bg-black/10 transition-all duration-300"
                     aria-label="Toggle menu"
                 >
                     {isMobileMenuOpen ? (
@@ -218,7 +218,7 @@ const Navbar = ({ lang, setLang }) => {
             </div>
 
             <div
-                className={`md:hidden absolute top-full left-0 right-0 bg-bg-abyss/98 backdrop-blur-2xl border-b border-white/10 transition-all duration-300 ease-out origin-top shadow-2xl h-screen ${isMobileMenuOpen
+                className={`md:hidden absolute top-full left-0 right-0 bg-bg-abyss/98 backdrop-blur-2xl border-b border-black/10 transition-all duration-300 ease-out origin-top shadow-2xl h-screen ${isMobileMenuOpen
                     ? 'opacity-100 scale-y-100'
                     : 'opacity-0 scale-y-0 pointer-events-none'
                     }`}
@@ -251,8 +251,8 @@ const Navbar = ({ lang, setLang }) => {
                                     {...linkProps}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                     className={`block px-6 py-4 rounded-xl transition-all ${isActive
-                                        ? 'text-text-white bg-white/10 font-medium'
-                                        : 'text-text-gray hover:text-text-white hover:bg-white/5'
+                                        ? 'text-text-white bg-black/10 font-medium'
+                                        : 'text-text-gray hover:text-text-white hover:bg-black/5'
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
@@ -267,7 +267,7 @@ const Navbar = ({ lang, setLang }) => {
                     })}
 
                     <li 
-                        className="px-2 pt-4 mt-4 border-t border-white/10 transition-all duration-300"
+                        className="px-2 pt-4 mt-4 border-t border-black/10 transition-all duration-300"
                         style={{ 
                             opacity: isMobileMenuOpen ? 1 : 0, 
                             transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
@@ -277,7 +277,7 @@ const Navbar = ({ lang, setLang }) => {
                         <button
                             type="button"
                             onClick={() => { toggleLang(); setIsMobileMenuOpen(false); }}
-                            className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-text-white font-semibold hover:bg-white/10 transition-all"
+                            className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-black/5 border border-black/10 text-text-white font-semibold hover:bg-black/10 transition-all"
                         >
                             <FaGlobe className="w-4 h-4 text-accent-crimson" />
                             {t('nav.toggleLang')}
@@ -317,3 +317,4 @@ const Navbar = ({ lang, setLang }) => {
 };
 
 export default Navbar;
+

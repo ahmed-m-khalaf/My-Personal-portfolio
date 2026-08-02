@@ -15,3 +15,4 @@ const ReadingProgress = () => {
 };
 
 export default ReadingProgress;
+

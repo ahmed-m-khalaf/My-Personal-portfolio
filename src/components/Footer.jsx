@@ -42,7 +42,7 @@ const Footer = ({ lang = 'en' }) => {
     ];
 
     return (
-        <footer className="bg-bg-abyss border-t border-white/10 relative overflow-hidden">
+        <footer className="bg-bg-abyss border-t border-black/10 relative overflow-hidden">
             {/* Subtle background glow */}
             <div className="absolute top-0 left-1/4 w-96 h-48 bg-accent-crimson/5 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-96 h-48 bg-accent-sapphire/5 rounded-full blur-3xl pointer-events-none" />
@@ -124,7 +124,7 @@ const Footer = ({ lang = 'en' }) => {
                                         href={social.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="group relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-text-gray border border-white/5 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-lg hover:border-white/20"
+                                        className="group relative w-10 h-10 flex items-center justify-center rounded-xl bg-black/5 text-text-gray border border-black/5 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-lg hover:border-black/10"
                                         style={{
                                             '--hover-color': social.color
                                         }}
@@ -151,7 +151,7 @@ const Footer = ({ lang = 'en' }) => {
                 </div>
 
                 {/* Copyright */}
-                <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="mt-12 pt-8 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-text-slate text-sm">
                         © {currentYear} Ahmed M Khalaf. {t('footer.copyright')}
                     </p>
@@ -165,3 +165,4 @@ const Footer = ({ lang = 'en' }) => {
 };
 
 export default Footer;
+

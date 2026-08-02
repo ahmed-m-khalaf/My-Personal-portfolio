@@ -25,7 +25,7 @@ const ShareButtons = ({ url, title, lang }) => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center py-10 mt-12 border-t border-white/10">
+    <div className="flex flex-col items-center justify-center py-10 mt-12 border-t border-black/10">
       <h3 className="text-sm font-semibold text-text-slate mb-6 uppercase tracking-wider">
         {isAr ? 'شارك المقال' : 'Share this article'}
       </h3>
@@ -36,7 +36,7 @@ const ShareButtons = ({ url, title, lang }) => {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`w-12 h-12 flex items-center justify-center rounded-full glass text-text-gray border-white/10 transition-all duration-300 ${link.color}`}
+            className={`w-12 h-12 flex items-center justify-center rounded-full glass text-text-gray border-black/10 transition-all duration-300 ${link.color}`}
             aria-label={`Share on ${link.name}`}
           >
             {link.icon}
@@ -44,7 +44,7 @@ const ShareButtons = ({ url, title, lang }) => {
         ))}
         <button
           onClick={handleCopyLink}
-          className="w-12 h-12 flex items-center justify-center rounded-full glass text-text-gray border-white/10 transition-all duration-300 hover:text-accent-crimson hover:bg-accent-crimson/10 hover:border-accent-crimson/50"
+          className="w-12 h-12 flex items-center justify-center rounded-full glass text-text-gray border-black/10 transition-all duration-300 hover:text-accent-crimson hover:bg-accent-crimson/10 hover:border-accent-crimson/50"
           aria-label="Copy link"
         >
           <FaLink />
@@ -55,3 +55,4 @@ const ShareButtons = ({ url, title, lang }) => {
 };
 
 export default ShareButtons;
+

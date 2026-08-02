@@ -22,7 +22,7 @@ const ProgressiveImage = ({ src, alt, placeholder = "transparent", className = "
         <div className={`relative overflow-hidden ${className}`} {...props}>
             {/* Low res placeholder or solid color */}
             <div 
-                className={`absolute inset-0 bg-white/5 transition-opacity duration-500 ease-out ${isLoaded ? 'opacity-0' : 'opacity-100 backdrop-blur-xl'}`}
+                className={`absolute inset-0 bg-black/5 transition-opacity duration-500 ease-out ${isLoaded ? 'opacity-0' : 'opacity-100 backdrop-blur-xl'}`}
                 style={{ backgroundColor: placeholder }}
             />
             
@@ -37,3 +37,4 @@ const ProgressiveImage = ({ src, alt, placeholder = "transparent", className = "
 };
 
 export default ProgressiveImage;
+

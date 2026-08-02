@@ -43,7 +43,7 @@ const Button = ({
     `,
         ghost: `
       bg-transparent text-text-gray 
-      hover:bg-white/10 hover:text-text-white
+      hover:bg-black/10 hover:text-text-white
     `
     };
 
@@ -88,3 +88,4 @@ const Button = ({
 };
 
 export default Button;
+

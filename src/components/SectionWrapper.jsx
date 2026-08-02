@@ -180,3 +180,4 @@ export const SectionHeader = ({ title, subtitle, centered = true }) => {
 };
 
 export default SectionWrapper;
+

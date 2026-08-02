@@ -166,11 +166,11 @@ const Projects = ({ lang = 'en' }) => {
                     tabIndex="0"
                 >
                     {/* Main Glassmorphism Container */}
-                    <div className={`relative rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-md border transition-all duration-300 shadow-2xl shadow-black/30 ${isManualPaused ? 'border-accent-crimson/50 ring-1 ring-accent-crimson/30' : 'border-white/10'}`}>
+                    <div className={`relative rounded-3xl overflow-hidden bg-gradient-to-br from-black/5 to-white/0 backdrop-blur-md border transition-all duration-300 shadow-2xl shadow-black/30 ${isManualPaused ? 'border-accent-crimson/50 ring-1 ring-accent-crimson/30' : 'border-black/10'}`}>
 
                         <div className="flex flex-col lg:flex-row min-h-[520px]">
                             {/* Image Section - Larger */}
-                            <div className="w-full lg:w-[60%] p-6 md:p-10 flex items-center justify-center bg-gradient-to-br from-white/5 to-transparent relative">
+                            <div className="w-full lg:w-[60%] p-6 md:p-10 flex items-center justify-center bg-gradient-to-br from-black/5 to-transparent relative">
                                 <div ref={imageRef} className="relative w-full h-64 md:h-[400px] lg:h-[420px]">
                                     <img
                                         src={currentProject.image}
@@ -199,10 +199,10 @@ const Projects = ({ lang = 'en' }) => {
                             </div>
 
                             {/* Details Section */}
-                            <div ref={contentRef} className="w-full lg:w-[40%] p-6 md:p-10 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-white/5 relative">
+                            <div ref={contentRef} className="w-full lg:w-[40%] p-6 md:p-10 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-black/5 relative">
 
                                 {/* Pause/Play Indicator */}
-                                <div className="absolute top-5 right-5 text-white/50 transition-colors duration-300">
+                                <div className="absolute top-5 right-5 text-black/50 transition-colors duration-300">
                                     {isManualPaused
                                         ? <FaPause className="text-accent-crimson animate-pulse" size={14} />
                                         : <FaPlay className="text-accent-sapphire opacity-0 group-hover:opacity-100 transition-opacity" size={14} />
@@ -282,7 +282,7 @@ const Projects = ({ lang = 'en' }) => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={(e) => e.stopPropagation()}
-                                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-white/5 text-text-white border border-white/10 transition-all duration-300 hover:bg-white/10 hover:scale-105"
+                                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-black/5 text-text-white border border-black/10 transition-all duration-300 hover:bg-black/10 hover:scale-105"
                                     >
                                         <FaGithub size={14} />
                                         {t('ui.github')}
@@ -293,14 +293,14 @@ const Projects = ({ lang = 'en' }) => {
                                 <div className="hidden lg:flex items-center gap-3 mt-auto pt-4">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                                        className="p-3.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hover:scale-110 active:scale-95"
+                                        className="p-3.5 rounded-full bg-black/5 hover:bg-black/10 text-white transition-all hover:scale-110 active:scale-95"
                                         aria-label={t('aria.previousProject')}
                                     >
                                         <FaChevronLeft size={16} />
                                     </button>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                                        className="p-3.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hover:scale-110 active:scale-95"
+                                        className="p-3.5 rounded-full bg-black/5 hover:bg-black/10 text-white transition-all hover:scale-110 active:scale-95"
                                         aria-label={t('aria.nextProject')}
                                     >
                                         <FaChevronRight size={16} />
@@ -313,7 +313,7 @@ const Projects = ({ lang = 'en' }) => {
                         </div>
 
                         {/* Progress Bar */}
-                        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/5">
+                        <div className="absolute bottom-0 left-0 w-full h-1 bg-black/5">
                             <div
                                 ref={progressRef}
                                 className="h-full rounded-full"
@@ -349,7 +349,7 @@ const Projects = ({ lang = 'en' }) => {
                                 onClick={() => handleThumbnailClick(index)}
                                 className={`flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 ${index === activeIndex
                                     ? 'ring-2 ring-offset-2 ring-offset-bg-abyss'
-                                    : 'border-white/10 opacity-50 hover:opacity-80'
+                                    : 'border-black/10 opacity-50 hover:opacity-80'
                                     }`}
                                 style={{
                                     borderColor: index === activeIndex ? project.accentColor : undefined,
@@ -376,3 +376,4 @@ const Projects = ({ lang = 'en' }) => {
 };
 
 export default Projects;
+

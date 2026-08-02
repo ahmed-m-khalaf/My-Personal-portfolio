@@ -102,7 +102,7 @@ const Preloader = ({ onComplete }) => {
 
             {/* Loading line & Percentage */}
             <div className="mt-6 flex flex-col items-center gap-2">
-                <div className="w-36 h-1 bg-white/10 rounded-full overflow-hidden">
+                <div className="w-36 h-1 bg-black/10 rounded-full overflow-hidden">
                     <div
                         ref={lineRef}
                         className="h-full bg-gradient-to-r from-accent-crimson to-accent-sapphire rounded-full origin-left"
@@ -118,3 +118,4 @@ const Preloader = ({ onComplete }) => {
 };
 
 export default Preloader;
+

@@ -93,7 +93,7 @@ const About = ({ lang = 'en' }) => {
                         <div className="absolute inset-0 bg-gradient-to-br from-accent-crimson/30 to-accent-sapphire/30 rounded-2xl blur-2xl scale-105" />
 
                         {/* Image Container */}
-                        <div className="relative rounded-2xl overflow-hidden border-2 border-white/10">
+                        <div className="relative rounded-2xl overflow-hidden border-2 border-black/10">
                             <ProgressiveImage
                                 src="/images/Screenshot 2026-01-27 012041.png"
                                 alt={about.name}
@@ -152,3 +152,4 @@ const About = ({ lang = 'en' }) => {
 };
 
 export default About;
+

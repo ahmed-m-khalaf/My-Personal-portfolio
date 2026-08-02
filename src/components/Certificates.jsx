@@ -154,11 +154,11 @@ const Certificates = ({ lang = 'en' }) => {
                     tabIndex="0"
                 >
                     {/* Glassmorphism Container */}
-                    <div className={`relative rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-md border transition-all duration-300 shadow-2xl shadow-black/20 ${isManualPaused ? 'border-accent-crimson/50 ring-1 ring-accent-crimson/30' : 'border-white/10'}`}>
+                    <div className={`relative rounded-3xl overflow-hidden bg-gradient-to-br from-black/5 to-white/0 backdrop-blur-md border transition-all duration-300 shadow-2xl shadow-black/20 ${isManualPaused ? 'border-accent-crimson/50 ring-1 ring-accent-crimson/30' : 'border-black/10'}`}>
 
                         <div className="flex flex-col md:flex-row min-h-[500px]">
                             {/* Image Section */}
-                            <div className="w-full md:w-3/5 p-8 md:p-12 flex items-center justify-center bg-gradient-to-br from-white/5 to-transparent">
+                            <div className="w-full md:w-3/5 p-8 md:p-12 flex items-center justify-center bg-gradient-to-br from-black/5 to-transparent">
                                 <div ref={contentRef} className="relative w-full h-72 md:h-[450px]">
                                     <ProgressiveImage
                                         src={currentCert.image}
@@ -169,10 +169,10 @@ const Certificates = ({ lang = 'en' }) => {
                             </div>
 
                             {/* Details Section */}
-                            <div className="w-full md:w-2/5 p-8 md:p-12 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/5 relative">
+                            <div className="w-full md:w-2/5 p-8 md:p-12 flex flex-col justify-center border-t md:border-t-0 md:border-l border-black/5 relative">
 
                                 {/* Status Indicator (Play/Pause Icon in top right) */}
-                                <div className="absolute top-6 right-6 text-white/50 transition-colors duration-300">
+                                <div className="absolute top-6 right-6 text-black/50 transition-colors duration-300">
                                     {isManualPaused ? <FaPause className="text-accent-crimson animate-pulse" /> : <FaPlay className="text-accent-sapphire opacity-0 group-hover:opacity-100" />}
                                 </div>
 
@@ -197,14 +197,14 @@ const Certificates = ({ lang = 'en' }) => {
                                 <div className="hidden md:flex items-center gap-4 mt-auto pt-8">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                                        className="p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hover:scale-110 active:scale-95 z-20"
+                                        className="p-4 rounded-full bg-black/5 hover:bg-black/10 text-white transition-all hover:scale-110 active:scale-95 z-20"
                                         aria-label={t('aria.previousCertificate')}
                                     >
                                         <FaChevronLeft size={20} />
                                     </button>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                                        className="p-4 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all hover:scale-110 active:scale-95 z-20"
+                                        className="p-4 rounded-full bg-black/5 hover:bg-black/10 text-white transition-all hover:scale-110 active:scale-95 z-20"
                                         aria-label={t('aria.nextCertificate')}
                                     >
                                         <FaChevronRight size={20} />
@@ -214,7 +214,7 @@ const Certificates = ({ lang = 'en' }) => {
                         </div>
 
                         {/* Progress Bar */}
-                        <div className="absolute bottom-0 left-0 w-full h-1.5 bg-white/5">
+                        <div className="absolute bottom-0 left-0 w-full h-1.5 bg-black/5">
                             <div
                                 ref={progressRef}
                                 className="h-full shadow-[0_0_10px_rgba(217,30,42,0.5)]"
@@ -264,3 +264,4 @@ const Certificates = ({ lang = 'en' }) => {
 };
 
 export default Certificates;
+

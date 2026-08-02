@@ -16,16 +16,16 @@ const Card = ({
         default: `
       bg-card-midnight/30 
       backdrop-blur-md 
-      border border-white/10
+      border border-black/10
     `,
         glass: `
-      bg-white/5 
+      bg-black/5 
       backdrop-blur-xl 
-      border border-white/10
+      border border-black/10
     `,
         solid: `
       bg-card-midnight 
-      border border-white/5
+      border border-black/5
     `
     };
 
@@ -164,3 +164,4 @@ export const ServiceCard = ({ service, IconComponent }) => {
 };
 
 export default Card;
+

@@ -110,7 +110,7 @@ const SkillCard = ({ skill, translatedSkills }) => {
     return (
         <div
             ref={cardRef}
-            className="group relative rounded-3xl bg-card-midnight/20 backdrop-blur-xl border border-white/5 overflow-hidden transition-colors duration-500 hover:border-white/20 tilt-card-wrapper"
+            className="group relative rounded-3xl bg-card-midnight/20 backdrop-blur-xl border border-black/5 overflow-hidden transition-colors duration-500 hover:border-black/10 tilt-card-wrapper"
             style={{ '--skill-color': skill.color }}
         >
             <div className="tilt-card-inner p-8 w-full h-full relative">
@@ -123,7 +123,7 @@ const SkillCard = ({ skill, translatedSkills }) => {
                 <div className="relative z-10 flex items-center gap-6">
                     {/* Icon Container */}
                     <div
-                        className="w-20 h-20 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-white/10 shadow-xl"
+                        className="w-20 h-20 flex items-center justify-center rounded-2xl bg-black/5 border border-black/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-black/10 shadow-xl"
                         style={{ color: skill.color }}
                     >
                         {IconComponent && <IconComponent className="w-10 h-10 transition-transform duration-500 group-hover:rotate-12" />}
@@ -154,3 +154,4 @@ const SkillCard = ({ skill, translatedSkills }) => {
 };
 
 export default Skills;
+

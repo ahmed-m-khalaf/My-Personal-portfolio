@@ -31,7 +31,7 @@ const TableOfContents = ({ lang }) => {
       <h4 className="text-sm font-semibold text-text-white mb-4 uppercase tracking-wider">
         {isAr ? 'محتويات المقال' : 'On this page'}
       </h4>
-      <ul className="space-y-3 border-l-2 border-white/5 pl-4 rtl:pl-0 rtl:border-l-0 rtl:border-r-2 rtl:pr-4 transition-colors">
+      <ul className="space-y-3 border-l-2 border-black/5 pl-4 rtl:pl-0 rtl:border-l-0 rtl:border-r-2 rtl:pr-4 transition-colors">
         {dummyHeadings.map((heading) => {
           const isActive = activeId === heading.id;
           const displayTitle = isAr && heading.titleAr ? heading.titleAr : heading.title;
@@ -64,3 +64,4 @@ const TableOfContents = ({ lang }) => {
 };
 
 export default TableOfContents;
+

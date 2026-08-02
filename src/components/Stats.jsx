@@ -112,7 +112,7 @@ const Stats = ({ lang = 'en' }) => {
                         return (
                             <div
                                 key={stat.id}
-                                className="stat-card group relative p-6 md:p-8 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/5 text-center transition-all duration-500 hover:border-white/15 hover:bg-white/[0.06] opacity-0"
+                                className="stat-card group relative p-6 md:p-8 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-black/5 text-center transition-all duration-500 hover:border-white/15 hover:bg-white/[0.06] opacity-0"
                             >
                                 {/* Hover glow */}
                                 <div
@@ -122,7 +122,7 @@ const Stats = ({ lang = 'en' }) => {
 
                                 {/* Icon */}
                                 <div
-                                    className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-xl bg-white/5 transition-all duration-500 group-hover:scale-110 group-hover:bg-white/10"
+                                    className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-xl bg-black/5 transition-all duration-500 group-hover:scale-110 group-hover:bg-black/10"
                                     style={{ color: stat.color }}
                                 >
                                     <IconComp className="w-6 h-6" />
@@ -156,3 +156,4 @@ const Stats = ({ lang = 'en' }) => {
 };
 
 export default Stats;
+

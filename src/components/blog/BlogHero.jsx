@@ -55,3 +55,4 @@ const BlogHero = ({ lang }) => {
 };
 
 export default BlogHero;
+

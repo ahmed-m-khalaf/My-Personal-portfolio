@@ -149,7 +149,7 @@ const Contact = ({ lang = 'en' }) => {
                         {contactInfo.map((info, index) => (
                             <div
                                 key={index}
-                                className="group flex items-center gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/5 hover:border-accent-crimson/30 transition-all duration-300"
+                                className="group flex items-center gap-4 p-4 rounded-xl bg-black/5 backdrop-blur-sm border border-black/5 hover:border-accent-crimson/30 transition-all duration-300"
                             >
                                 <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-accent-crimson/10 text-accent-crimson group-hover:bg-accent-crimson group-hover:text-white transition-all duration-300">
                                     <info.icon className="w-5 h-5" />
@@ -185,7 +185,7 @@ const Contact = ({ lang = 'en' }) => {
                                         href={social.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="group relative w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-text-gray transition-all duration-500 ease-out hover:-translate-y-3 hover:shadow-lg"
+                                        className="group relative w-12 h-12 flex items-center justify-center rounded-xl bg-black/5 backdrop-blur-sm border border-black/10 text-text-gray transition-all duration-500 ease-out hover:-translate-y-3 hover:shadow-lg"
                                         style={{
                                             '--hover-color': social.color,
                                             '--hover-shadow': `${social.color}40`
@@ -215,7 +215,7 @@ const Contact = ({ lang = 'en' }) => {
                 {/* Contact Form Side */}
                 <div
                     ref={formRef}
-                    className="relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10"
+                    className="relative p-8 rounded-2xl bg-gradient-to-br from-black/5 to-white/[0.02] backdrop-blur-sm border border-black/10"
                 >
                     {/* Decorative gradient */}
                     <div className="absolute -top-1 -right-1 w-32 h-32 bg-accent-crimson/20 rounded-full blur-3xl pointer-events-none" />
@@ -232,7 +232,7 @@ const Contact = ({ lang = 'en' }) => {
                                 onChange={handleChange}
                                 required
                                 placeholder=" "
-                                className="peer w-full px-4 pt-6 pb-2 rounded-xl bg-white/5 border border-white/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
+                                className="peer w-full px-4 pt-6 pb-2 rounded-xl bg-black/5 border border-black/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
                             />
                             <label
                                 htmlFor="name"
@@ -252,7 +252,7 @@ const Contact = ({ lang = 'en' }) => {
                                 onChange={handleChange}
                                 required
                                 placeholder=" "
-                                className="peer w-full px-4 pt-6 pb-2 rounded-xl bg-white/5 border border-white/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
+                                className="peer w-full px-4 pt-6 pb-2 rounded-xl bg-black/5 border border-black/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300"
                             />
                             <label
                                 htmlFor="email"
@@ -273,7 +273,7 @@ const Contact = ({ lang = 'en' }) => {
                                 maxLength={500}
                                 rows={5}
                                 placeholder=" "
-                                className="peer w-full px-4 pt-6 pb-6 rounded-xl bg-white/5 border border-white/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300 resize-none"
+                                className="peer w-full px-4 pt-6 pb-6 rounded-xl bg-black/5 border border-black/10 text-text-white focus:outline-none focus:border-accent-crimson/50 focus:ring-2 focus:ring-accent-crimson/20 transition-all duration-300 resize-none"
                             />
                             <label
                                 htmlFor="message"
@@ -325,3 +325,4 @@ const Contact = ({ lang = 'en' }) => {
 };
 
 export default Contact;
+

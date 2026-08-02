@@ -7,7 +7,7 @@ const BlogCard = ({ post, lang }) => {
   
   return (
     <Link to={`/blog/${post.slug}`} className="block group h-full">
-      <div className="glass rounded-2xl overflow-hidden hover-lift h-full flex flex-col border border-white/5 relative bg-bg-abyss/40 transition-all duration-500 hover:border-accent-crimson/30">
+      <div className="glass rounded-2xl overflow-hidden hover-lift h-full flex flex-col border border-black/5 relative bg-bg-abyss/40 transition-all duration-500 hover:border-accent-crimson/30">
         
         {/* Glow effect on hover */}
         <div className="absolute inset-0 bg-gradient-to-tr from-accent-crimson/0 via-transparent to-accent-sapphire/0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none" />
@@ -31,7 +31,7 @@ const BlogCard = ({ post, lang }) => {
            
            {/* Badges */}
            <div className="absolute top-4 left-4 flex gap-2">
-             <span className="px-3 py-1.5 text-xs font-semibold rounded-full bg-bg-abyss/80 backdrop-blur-md text-white border border-white/10 shadow-lg capitalize">
+             <span className="px-3 py-1.5 text-xs font-semibold rounded-full bg-bg-abyss/80 backdrop-blur-md text-white border border-black/10 shadow-lg capitalize">
                 {post.category}
              </span>
              {post.featured && (
@@ -64,9 +64,9 @@ const BlogCard = ({ post, lang }) => {
           </p>
           
           {/* Tags Footer */}
-          <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+          <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-black/5">
              {post.tags?.slice(0, 3).map(tag => (
-                <span key={tag} className="text-xs px-2.5 py-1 rounded-md bg-white/5 text-text-slate group-hover:bg-white/10 transition-colors border border-white/5">
+                <span key={tag} className="text-xs px-2.5 py-1 rounded-md bg-black/5 text-text-slate group-hover:bg-black/10 transition-colors border border-black/5">
                   #{tag}
                 </span>
              ))}
@@ -78,3 +78,4 @@ const BlogCard = ({ post, lang }) => {
 };
 
 export default BlogCard;
+

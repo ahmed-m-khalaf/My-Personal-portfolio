@@ -88,13 +88,13 @@ const ServiceCard = ({ service, translatedServices }) => {
     return (
         <div
             ref={cardRef}
-            className="group relative h-full rounded-3xl bg-card-midnight/30 backdrop-blur-md border border-white/5 transition-colors duration-300 hover:border-[var(--service-color)] tilt-card-wrapper overflow-hidden"
+            className="group relative h-full rounded-3xl bg-card-midnight/30 backdrop-blur-md border border-black/5 transition-colors duration-300 hover:border-[var(--service-color)] tilt-card-wrapper overflow-hidden"
             style={{ '--service-color': service.color, boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)' }}
         >
             <div className="tilt-card-inner p-10 flex flex-col justify-between w-full h-full relative z-10">
                 <div className="relative z-10 flex-grow">
                     <div
-                        className="w-14 h-14 flex items-center justify-center rounded-xl bg-white/5 text-2xl mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-[var(--service-color)]/20"
+                        className="w-14 h-14 flex items-center justify-center rounded-xl bg-black/5 text-2xl mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-[var(--service-color)]/20"
                         style={{ color: service.color }}
                     >
                         {IconComponent && <IconComponent />}
@@ -115,3 +115,4 @@ const ServiceCard = ({ service, translatedServices }) => {
 };
 
 export default Services;
+

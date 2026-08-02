@@ -20,3 +20,4 @@ const AuroraBackground = memo(() => {
 AuroraBackground.displayName = 'AuroraBackground';
 
 export default AuroraBackground;
+
