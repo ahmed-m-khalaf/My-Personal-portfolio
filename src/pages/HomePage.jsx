@@ -1,5 +1,7 @@
 import React, { lazy, Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Hero } from '../components';
+import { getT } from '../data/translations';
 
 // Lazy load below-the-fold components for better initial load performance
 const About = lazy(() => import('../components/About'));
@@ -25,8 +27,21 @@ const SectionDivider = () => (
 );
 
 const HomePage = ({ lang }) => {
+  const t = getT(lang);
+  const title = lang === 'ar' ? 'أحمد م. خلف | مطور واجهات أمامية' : 'Ahmed M Khalaf | Front-End Developer';
+  const description = t('hero.tagline');
+
   return (
     <>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </Helmet>
+
       <Hero lang={lang} />
 
       <Suspense fallback={<SectionLoader />}>

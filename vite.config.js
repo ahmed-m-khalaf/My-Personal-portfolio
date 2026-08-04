@@ -22,7 +22,13 @@ export default defineConfig({
   build: {
     // Optimize chunk splitting for better caching
     rollupOptions: {
-      // Using Vite's default chunking strategy to avoid circular dependencies
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+          gsap: ['gsap'],
+          icons: ['react-icons']
+        }
+      }
     },
     // Minification with better compression
     minify: 'esbuild',
