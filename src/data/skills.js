@@ -14,6 +14,13 @@ export const skills = [
         color: "#A8B1FF" // Light purple/white to contrast dark mode
     },
     {
+        id: 14,
+        name: "TypeScript",
+        icon: "SiTypescript",
+        category: "Frontend",
+        color: "#3178C6"
+    },
+    {
         id: 2,
         name: "JavaScript",
         icon: "SiJavascript",
@@ -27,12 +34,20 @@ export const skills = [
         category: "Frontend",
         color: "#06B6D4"
     },
+   
     {
         id: 4,
         name: "GitHub",
         icon: "FaGithub",
         category: "Tools",
         color: "#FAFBFC"
+    },
+    {
+        id: 17,
+        name: "Git",
+        icon: "FaGitAlt",
+        category: "Tools",
+        color: "#F05032"
     },
     {
         id: 5,
@@ -98,13 +113,7 @@ export const skills = [
         category: "Backend",
         color: "#FFCA28" // Firebase Yellow/Orange
     },
-    {
-        id: 14,
-        name: "TypeScript",
-        icon: "SiTypescript",
-        category: "Frontend",
-        color: "#3178C6"
-    },
+   
     {
         id: 16,
         name: "Node.js",
@@ -112,11 +121,5 @@ export const skills = [
         category: "Backend",
         color: "#339933"
     },
-    {
-        id: 17,
-        name: "Git",
-        icon: "FaGitAlt",
-        category: "Tools",
-        color: "#F05032"
-    }
+    
 ];
