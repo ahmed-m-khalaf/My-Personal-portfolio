@@ -1,7 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes, FaGlobe } from 'react-icons/fa';
 import { getT } from '../data/translations';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useMagneticEffect from '../hooks/useMagneticEffect';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
     { key: 'home', href: '/#home', isHash: true },
@@ -20,9 +25,33 @@ const Navbar = ({ lang, setLang }) => {
     const [sectionProgress, setSectionProgress] = useState({});
     const [activeSection, setActiveSection] = useState('home');
     const location = useLocation();
+    const logoRef = useRef(null);
+    const ctaRef = useRef(null);
     
     const isHomePage = location.pathname === '/';
     const t = getT(lang);
+
+    // Magnetic effect on CTA button
+    useMagneticEffect(ctaRef, { strength: 0.25 });
+
+    // Logo morph on scroll
+    useEffect(() => {
+        if (!logoRef.current) return;
+        const ctx = gsap.context(() => {
+            gsap.to(logoRef.current, {
+                scale: 0.9,
+                letterSpacing: '0px',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: document.body,
+                    start: 'top top',
+                    end: '200px top',
+                    scrub: 0.5,
+                },
+            });
+        });
+        return () => ctx.revert();
+    }, []);
 
     const calculateProgress = useCallback(() => {
         if (!isHomePage) return;
@@ -133,10 +162,12 @@ const Navbar = ({ lang, setLang }) => {
                     className="flex items-center gap-2 font-display font-bold transition-all duration-300 hover:scale-110"
                 >
                     <span
+                        ref={logoRef}
                         className="text-3xl bg-gradient-to-r from-accent-crimson via-card-midnight to-accent-sapphire bg-clip-text text-transparent"
                         style={{
                             WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent'
+                            WebkitTextFillColor: 'transparent',
+                            letterSpacing: '2px',
                         }}
                     >
                         AMK.
@@ -189,6 +220,7 @@ const Navbar = ({ lang, setLang }) => {
 
                     {isHomePage ? (
                         <a
+                            ref={ctaRef}
                             href="#contact"
                             className="inline-flex items-center px-5 py-2.5 rounded-lg bg-accent-crimson text-white font-semibold text-sm hover:bg-accent-crimson/90 hover:shadow-lg hover:shadow-accent-crimson/25 transition-all duration-300"
                         >
@@ -196,6 +228,7 @@ const Navbar = ({ lang, setLang }) => {
                         </a>
                     ) : (
                         <Link
+                            ref={ctaRef}
                             to="/#contact"
                             className="inline-flex items-center px-5 py-2.5 rounded-lg bg-accent-crimson text-white font-semibold text-sm hover:bg-accent-crimson/90 hover:shadow-lg hover:shadow-accent-crimson/25 transition-all duration-300"
                         >
@@ -317,4 +350,3 @@ const Navbar = ({ lang, setLang }) => {
 };
 
 export default Navbar;
-

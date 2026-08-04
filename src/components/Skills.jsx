@@ -9,14 +9,19 @@ import {
     FaHtml5,
     FaCss3Alt,
     FaMagic,
-    FaPlay
+    FaPlay,
+    FaNodeJs,
+    FaGitAlt,
+    FaFigma
 } from 'react-icons/fa';
 import {
     SiJavascript,
     SiTailwindcss,
     SiRedux,
     SiVite,
-    SiFirebase
+    SiFirebase,
+    SiTypescript,
+    SiNextdotjs
 } from 'react-icons/si';
 import { SectionHeader } from './SectionWrapper';
 import { skills } from '../data/skills';
@@ -35,11 +40,16 @@ const iconMap = {
     FaCss3Alt: FaCss3Alt,
     FaMagic: FaMagic,
     FaPlay: FaPlay,
+    FaNodeJs: FaNodeJs,
+    FaGitAlt: FaGitAlt,
+    FaFigma: FaFigma,
     SiJavascript: SiJavascript,
     SiTailwindcss: SiTailwindcss,
     SiRedux: SiRedux,
     SiVite: SiVite,
     SiFirebase: SiFirebase,
+    SiTypescript: SiTypescript,
+    SiNextdotjs: SiNextdotjs,
 };
 
 const Skills = ({ lang = 'en' }) => {

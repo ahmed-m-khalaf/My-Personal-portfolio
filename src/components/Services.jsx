@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaCode, FaPalette, FaBolt, FaSearch, FaMobileAlt, FaGlobe } from 'react-icons/fa';
+import { FaCode, FaBolt, FaSearch, FaMagic, FaServer, FaLayerGroup } from 'react-icons/fa';
 import { SectionHeader } from './SectionWrapper';
 import { services } from '../data/services';
 import { getT } from '../data/translations';
@@ -11,11 +11,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const iconMap = {
     FaCode: FaCode,
-    FaPalette: FaPalette,
+    FaMagic: FaMagic,
     FaBolt: FaBolt,
     FaSearch: FaSearch,
-    FaMobileAlt: FaMobileAlt,
-    FaGlobe: FaGlobe
+    FaServer: FaServer,
+    FaLayerGroup: FaLayerGroup
 };
 
 const Services = ({ lang = 'en' }) => {
@@ -88,27 +88,47 @@ const ServiceCard = ({ service, translatedServices }) => {
     return (
         <div
             ref={cardRef}
-            className="group relative h-full rounded-3xl bg-card-midnight/30 backdrop-blur-md border border-black/5 transition-colors duration-300 hover:border-[var(--service-color)] tilt-card-wrapper overflow-hidden"
-            style={{ '--service-color': service.color, boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)' }}
+            className="group relative h-full rounded-[2.5rem] bg-card-midnight/20 backdrop-blur-xl border border-black/5 transition-all duration-500 hover:border-[var(--service-color)] hover:shadow-2xl hover:shadow-[var(--service-color)]/10 tilt-card-wrapper overflow-hidden"
+            style={{ '--service-color': service.color }}
         >
-            <div className="tilt-card-inner p-10 flex flex-col justify-between w-full h-full relative z-10">
-                <div className="relative z-10 flex-grow">
-                    <div
-                        className="w-14 h-14 flex items-center justify-center rounded-xl bg-black/5 text-2xl mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-[var(--service-color)]/20"
-                        style={{ color: service.color }}
-                    >
-                        {IconComponent && <IconComponent />}
-                    </div>
-                    <h3 className="text-xl font-display font-bold text-text-white mb-3 group-hover:text-[var(--service-color)] transition-colors">
-                        {displayTitle}
-                    </h3>
-                    <p className="text-text-slate text-sm leading-relaxed group-hover:text-text-gray transition-colors">
-                        {displayDescription}
-                    </p>
+            <div className="tilt-card-inner p-8 sm:p-10 w-full h-full relative z-10 flex flex-col">
+                {/* Minimalist Watermark Number */}
+                <div className="absolute top-8 right-8 text-6xl font-black opacity-5 font-display transition-transform duration-500 group-hover:scale-110 group-hover:opacity-10 group-hover:text-[var(--service-color)] pointer-events-none">
+                    0{service.id}
                 </div>
 
-                {/* Bottom Border Reveal */}
-                <div className="absolute bottom-0 left-0 w-0 h-1 bg-[var(--service-color)] group-hover:w-full transition-all duration-500 ease-in-out" />
+                {/* Animated Background Glow */}
+                <div 
+                    className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-0 group-hover:opacity-10 transition-all duration-700 blur-3xl pointer-events-none"
+                    style={{ backgroundColor: service.color }}
+                />
+
+                <div className="relative z-10 flex flex-col h-full">
+                    {/* Icon Container */}
+                    <div
+                        className="w-16 h-16 mb-8 flex items-center justify-center rounded-2xl bg-black/5 border border-black/5 transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-[var(--service-color)]/20 relative overflow-hidden"
+                        style={{ color: service.color }}
+                    >
+                         <div 
+                           className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" 
+                           style={{ backgroundColor: service.color }}
+                        />
+                        {IconComponent && <IconComponent className="text-3xl relative z-10 transition-transform duration-500 group-hover:rotate-6" />}
+                    </div>
+                    
+                    {/* Text content */}
+                    <div className="mt-auto">
+                        <h3 className="text-2xl font-display font-bold text-text-white mb-4 group-hover:text-[var(--service-color)] transition-colors duration-300 tracking-tight">
+                            {displayTitle}
+                        </h3>
+                        <p className="text-text-slate text-sm sm:text-base leading-relaxed font-medium">
+                            {displayDescription}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Animated Bottom Border Reveal */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1.5 bg-[var(--service-color)] group-hover:w-full transition-all duration-500 ease-in-out rounded-t-full shadow-[0_-4px_15px_var(--service-color)] pointer-events-none" />
             </div>
         </div>
     );
